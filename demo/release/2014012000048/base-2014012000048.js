@@ -1,0 +1,1 @@
+define("init",["util","p1"],function(){}),define("util",[],function(){});

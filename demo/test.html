@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,user-scalable=no" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>MT Demo</title>
+</head>
+<body>
+    <div>
+        <span>Hello world</span>
+    </div>
+
+    <script type="text/javascript" id="file_config">
+        var g_config = {
+            jsmap:{
+                'init': 'base.js',
+                'util': 'base.js',
+                'p1': 'page/p1.js',
+                'p2': 'page/p2.js',
+                'p3': 'page/p3.js'
+            },
+            storeInc:{
+                'store': true,
+                'inc': true,
+				'proxy':true,
+                'debug': false
+            },
+            testEnv: false,
+            staticPath: '/release',
+			serverDomain: 'http://localhost:6600',
+            buildType: 'project',
+            ver: '2014012000050'
+        };
+    </script>
+    <script src="js/mt/core.js"></script>
+    <script src="js/mt/storeIncLoad.js"></script>
+
+    <script type="text/javascript">
+        MT.config(g_config);
+        require('init');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+define("p3",[],function(){});

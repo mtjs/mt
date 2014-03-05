@@ -1,0 +1,15 @@
+
+ test.js
+----------------
+storeinc!c
+storeinc!d
+test.js
+
+ a.js
+----------------
+a.js
+
+ b.js
+----------------
+storeinc!log
+b.js

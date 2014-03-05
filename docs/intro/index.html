@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./docs.css">
+    <style>
+        h3, .h3{ font-size: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="bs-header" id="content">
+        <div class="container">
+            <h1>MT</h1>
+            <p>无更新 不下载！</p>
+        </div>
+    </div>
+
+    <div class="bs-old-docs">
+        <div class="container">
+            <strong>
+                <a href="../2.3.2/">Looking for Bootstrap 2.3.2 docs?</a>
+            </strong>
+            We've moved it to a new home while we push forward with Bootstrap 3. <a href="http://blog.getbootstrap.com/">Read the blog</a> for details.
+        </div>
+    </div>
+
+    <div class="container bs-docs-container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="bs-sidebar hidden-print affix" role="complementary">
+                    <ul class="nav bs-sidenav">
+                        <li class="">
+                            <a href="#overview">关于 MT</a>
+                            <ul class="nav">
+                                <li class=""><a href="#overview-what">What's MT</a></li>
+                                <li class=""><a href="#overview-why">Why MT</a></li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#fast">快速上手</a>
+                            <ul class="nav">
+                                <li class=""><a href="#fast-download">安装mtbuild</a></li>
+                                <li class=""><a href="#fast-proj">项目结构</a></li>
+                                <li class=""><a href="#fast-wmod">编写模块</a></li>
+                                <li class=""><a href="#fast-wconf">编写配置</a></li>
+                                <li class=""><a href="#fast-build">本地打包</a></li>
+                                <li class=""><a href="#fast-server">启动增量服务</a></li>
+                                <li class=""><a href="#fast-demo">效果演示</a></li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#also">还可以这么搞！</a>
+                            <ul class="nav">
+                                <li class=""><a href="#also-mtbuild">mtbuild离线生成增量更新文件</a></li>
+								<li class=""><a href="#also-proxy">各种语言的增量更新计算服务</a></li>
+								<li class=""><a href="#also-module">seajs，requirejs两大增量更新插件</a></li>
+								<li class=""><a href="#also-core">只使用core.js，不用增量更新</a></li>
+								<li class=""><a href="#also-mm">在自己的项目里面使用增量更新</a></li>
+
+                            </ul>
+                        </li>
+						   <li class="">
+                            <a href="#doc">文档列表</a>
+                            <ul class="nav">
+                                <li class=""><a href="#doc-storeinc">js增量更新算法设计.doc</a></li>
+								<li class=""><a href="#doc-seajs">seajs增量更新插件.doc</a></li>
+								<li class=""><a href="#doc-requirejs">requirejs增量更新插件.doc</a></li>
+								<li class=""><a href="#doc-java">servlet proxy使用方法.doc</a></li>
+								<li class=""><a href="#doc-php">php proxy使用方法.doc</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9" role="main">
+                <div class="bs-docs-section">
+                    <div class="page-header">
+                        <h1 id="overview">关于 MT</h1>
+                    </div>
+                    <h3 id="overview-what">什么是MT</h3>
+                    <p>MT是手机腾讯网前端团队开发维护的一个专注于移动端的js模块管理框架。</p>
+
+                    <h3 id="overview-why">为什么使用MT</h3>
+                    <ul>
+                        <li>无更新不下载</li>
+                        <li>简单友好的模块定义规范</li>
+                        <li>简单易用的打包管理工具</li>
+                        <li>强大的js增量更新代理服务</li>
+                    </ul>
+
+                    <div class="page-header">
+                        <h1 id="fast">快速上手(可查看demo目录下代码)</h1>
+                    </div>
+
+                    <h3 id="fast-download">安装mtbuild</h3>
+                    <p>
+                        github, npm
+                    </p>
+                    <pre><code data-language="shell">$ npm install mtbuild -g</code></pre>
+
+                    <h3 id="fast-proj">项目结构</h3>
+                    <p>
+                        MT项目架构一般如下图所示，release文件夹存放本地打包生成的内容，build.conf为打包配置文件。
+                    </p>
+                    <img src="./images/proj.png"/>
+
+                    <h3 id="fast-wmod">编写模块</h3>
+                    <p> AMD... </p>
+<pre><code data-language="javascript">define('p1', ['p2', 'p3'], function (p2, p3) {
+    var o = {
+        k: 'v'
+    };
+    return o;
+});</code></pre>
+
+                    <h3 id="fast-wconf">编写配置</h3>
+                    <p>
+                        页面配置：参考实例，在test.html中会存在一段单独的script标签，示意加载及打包配置。
+                    </p>
+<pre><code data-language="javascript"><script type="text/javascript" id="file_config">
+    var g_config = { // 约定变量名为 g_config，  script 标签 id 为 file_config
+        jsmap:{
+            'init': 'base.js',
+            'util': 'base.js', // 合并后指向同一个文件
+            'p1': 'page/p1.js',
+            'p2': 'page/p2.js',
+            'p3': 'page/p3.js'
+        },
+        storeInc:{
+            'store': true, // 使用本地存储
+            'inc': true, // 使用增量更新
+            'proxy':true,
+            'debug': false // 调试模式
+        },
+        testEnv: false, // 标识是否为测试环境
+        staticPath: '/release', // 此项目静态文件路径 和 下面域名拼接
+        serverDomain: 'http://localhost:6600', // 静态文件服务器域名
+        buildType: 'project', // 标识版本管理类型
+        ver: '2014012000050' // 项目版本号
+    };
+</script></code></pre>
+                    <p>
+                        打包配置：参考实例，创建一个build.conf的配置文件
+                    </p>
+<pre><code data-language="javascript">{
+	'./release/{pv}/base-{fv}.js': {
+		files: ['./js/init.js','./js/util.js']
+	},
+	'./release/{pv}/page/p1-{fv}.js': {
+        files: ['./js/page/p1.js']
+    },
+    './release/{pv}/page/p2-{fv}.js': {
+        files: ['./js/page/p2.js']
+    },
+    './release/{pv}/page/p3-{fv}.js': {
+        files: ['./js/page/p3.js']
+    }
+}
+</code></pre>
+                    <h3 id="fast-build">本地打包</h3>
+                    <p>
+                        打开命令行工具，切换到项目目录下，执行命令：（第一个参数为页面配置文件路径，第二个为打包配置文件路径）
+                    </p>
+                    <pre><code data-language="shell">$mtbuild test.html build.conf</code></pre>
+                    <p>
+                        看到下图提示证明打包成功：（启动增量服务可忽略incResult的结果）
+                    </p>
+                    <img src="./images/ret.png" width="800"/>
+
+                    <h3 id="fast-server">启动增量服务</h3>
+                    <p>
+                      可以使用demo目录里的一个用nodejs 写的storeincServer
+                    </p>
+                    <pre>node storeincServer</pre>
+
+                    <h3 id="fast-demo">效果演示</h3>
+                    <p>
+                        打开chrome(必须支持localstorage),输入地址:http://localhost:6600/test.html,可以看到请求的是全量的js
+                    </p>
+                    
+                     <img src="./images/49.PNG" width="800"/>
+                    <p>
+                        本地存储里的内容是49版本的：
+                    </p>
+                    
+                    <img src="./images/49local.PNG" width="800"/>
+                     <p>
+                        修改demo里的几个js内容，然后重新打包:
+                    </p>
+                    <pre><code data-language="shell">$mtbuild test.html build.conf</code></pre>
+                     <p>
+                        打开chrome(必须支持localstorage),输入地址:http://localhost:6600/test.html,这时候可以看到请求的内容是增量的:
+                    </p>
+                       <img src="./images/50.PNG" width="800"/>
+                    <p>
+                        本地存储里的内容是50版本的：
+                    </p>
+
+                    <img src="./images/50local.PNG" width="800"/>
+                      <p>
+                        查看网络请求，发现请求的内容是你本次修改的一些内容：
+                    </p>
+
+                    <img src="./images/50inc.PNG" width="800"/>
+                  <p>
+                        说明增量更新已经起了作用，就是这么简单。具体原理可以看后面列车的增量更新算法设计。
+                    </p>
+                </div>
+                <div class="page-header">
+                    <h1 id="also">还可以这么搞！</h1>
+                 </div>
+                   <h3 id="also-mtbuild">mtbuild离线生成增量更新文件</h3>
+                    <p> demo里的示例增量文件计算是靠storeincserver来做的，如果你没法控制静态资源服务器，
+                        其实你可以用mtbuild来生成静态增量更新文件，但是前台的loader程序会根据用户上次版本和本次版本相差为1的情况下才走增量更新，并且你需要配置proxy为false </p>
+                    <pre><code data-language="javascript">       storeInc:{
+                                'store': true, // 使用本地存储
+                                'inc': true, // 使用增量更新
+                                'proxy':false,//是否使用代理
+                                'debug': false // 调试模式
+                            },</code></pre>
+
+                    <h3 id="also-proxy">各种语言的增量更新计算服务</h3>
+                    <p> 除了nodejs版本的storeincserver,我们还提供了java,php版本的增量更新计算服务，使用方法见文档列表 </p>
+          
+                    <h3 id="also-module">seajs，requirejs两大增量更新插件</h3>
+                    <p> 如果你之前用了seajs或者用requirejs,现在不想改成mt,我们也提供了这两个模块管理器的增量更新插件，代码在js里的seajs和requirejs目录里面，使用方法参看后面的文档列表 </p>
+
+                    <h3 id="also-core">只使用core.js，不用增量更新</h3>
+                    <p> 如果你觉得增量更新意义不大，但是觉得我们的mt模块管理器还不错想用，那么你可以直接使用core.js，不引入storeincload.js即可！ </p>
+                
+                    <h3 id="also-mm">在自己的项目里面使用增量更新</h3>
+                    <p> 如果你觉得我们这里的增量更新不错，但是不想使用mt,也不想使用seajs,requirejs这些东西，只是想在自己的项目里面加入增量更新功能，那么请直接使用js/makemerge文件夹里的makein.js,merge.js。
+                    其中makeinc.js是用来计算两个文件的增量的，merge.js则是用来根据增量文件和原文件合并成新版文件的</p>
+                
+                  <div class="page-header">
+                    <h1 id="doc">文档列表</h1>
+                 </div>
+                        <h3 id="doc-storeinc">js增量更新算法设计.doc</h3>
+                   <a href="../js增量更新算法设计.doc">下载</a>
+
+                      <h3 id="doc-seajs">seajs增量更新插件.doc</h3>
+                        <a href="../seajs增量更新插件.doc">下载</a>
+
+                      <h3 id="doc-requirejs">requirejs增量更新插件.doc</h3>
+                       <a href="../requirejs增量更新插件.doc">下载</a>
+                      <h3 id="doc-java">servlet proxy使用方法.doc</h3>
+                        <a href="../servlet proxy使用方法.doc">下载</a>
+                      <h3 id="doc-php">php proxy使用方法.doc</h3>
+                        <a href="../php proxy使用方法.doc">下载</a>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <footer class="bs-footer" role="contentinfo"></footer>
+
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./bootstrap.min.js"></script>
+    <script type="text/javascript" src="./rainbow-custom.min.js"></script>
+    <script type="text/javascript" src="./index.js"></script>
+</body>
+</html>
+

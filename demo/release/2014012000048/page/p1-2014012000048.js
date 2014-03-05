@@ -1,0 +1,1 @@
+define("p1",["p2","p3"],function(){var n={k:"v"};return n});

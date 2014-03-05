@@ -1,0 +1,1 @@
+define("d",["storeinc!log"],function(e){var t={name:"D"};return e.write("module d3 ok! (require modules: log)"),t});

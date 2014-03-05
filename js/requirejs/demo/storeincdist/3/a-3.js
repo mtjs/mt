@@ -1,0 +1,1 @@
+define("log",[],function(){var e={};return e.write=function(e){document.getElementById("log").innerHTML+=e+"<br/>"},e.write("module modify log3 ok!xxx"),e});

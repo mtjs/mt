@@ -1,0 +1,1 @@
+define("c",["storeinc!log","storeinc!b"],function(e){var t={name:"C"};return e.write("module c ok! (require modules: b)"),t});
