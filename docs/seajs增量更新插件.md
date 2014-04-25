@@ -11,28 +11,35 @@ js本地存储和增量更新seajs插件使用
 
 清单4.启用storeinc插件:
     // Set configuration
-    var version='1.0.6' //这里是版本，使用storeinc就要遵循它的规范
+    //这里是版本，使用storeinc就要遵循它的规范
+    var version='1.0.6' 
     seajs.config({
       base: "../sea-modules/",
       alias: {
         "jquery": "jquery/jquery/1.10.1/jquery.js"
       }
     });
+
     //使用use来启用storeinc插件
-    seajs.use('plugin-storeinc', function(store) {
-    /storeinc插件设置
-    //store 表示启用本地存储
-    //inc 表示启用增量更新插件
-    //jsver 表示版本
-    //aliasver 表示定义了别名的js的版本，这个跟其他脚本做了区分，不走增量更新
-    //debug 表示是不是在调试状态，如果是则不走本地存储和增量更新
-      store.configStroreInc({'store':true,'inc':true,'jsver':version,'aliasver':'1.10.2','debug':false});
+    seajs.use('plugin-storeinc', function(store){
+      //storeinc插件设置
+      //store 表示启用本地存储
+      //inc 表示启用增量更新插件
+      //jsver 表示版本
+      //aliasver 表示定义了别名的js的版本，这个跟其他脚本做了区分，不走增量更新
+      //debug 表示是不是在调试状态，如果是则不走本地存储和增量更新
+      store.configStroreInc({
+        'store':true,
+        'inc':true,
+        'jsver':version,
+        'aliasver':'1.10.2',
+        'debug':false
+      });
       // For development
-      if (location.href.indexOf("?dev") > 0) {
+      if(location.href.indexOf("?dev") > 0) {
         seajs.use("../static/hello/src/main");
-      }
-      // For production
-      else {
+      }else{
+        // For production
         seajs.use("examples/hello/"+version+"/main");
       }
     });
