@@ -49,22 +49,22 @@ js增量更新算法设计
 
 合并代码如清单2所示.清单2.合并代码函数
 
-//source是上一个版本内容，trunkSize是块大小，checksumcode是两个版本间的增量文件数组
->	var rsyncjs=function(source,trunkSize,checksumcode){
-		var strResult="";
-		for(var i=0;i<checksumcode.length;i++){
-			var code=checksumcode[i];
-			if(typeof (code)=='string'){
-			 strResult+=code;
+		//source是上一个版本内容，trunkSize是块大小，checksumcode是两个版本间的增量文件数组
+		var rsyncjs=function(source,trunkSize,checksumcode){
+			var strResult="";
+			for(var i=0;i<checksumcode.length;i++){
+				var code=checksumcode[i];
+				if(typeof (code)=='string'){
+				 strResult+=code;
+				}
+				else{
+				var start=code[0]*trunkSize;
+				var len=code[1]*trunkSize;
+				var oldcode=source.substr(start,len);
+				strResult+=oldcode;
+				}
 			}
-			else{
-			var start=code[0]*trunkSize;
-			var len=code[1]*trunkSize;
-			var oldcode=source.substr(start,len);
-			strResult+=oldcode;
-			}
+			return strResult;
 		}
-		return strResult;
-	}
 
 通过这个算法，我们可以基本达到修改哪些内容就下载哪些内容的目的，大大减少下载流量。
