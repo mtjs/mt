@@ -10,32 +10,32 @@ js本地存储和增量更新seajs插件使用
 并且通过清单4的代码启用了本地存储和增量更新插件
 
 清单4.启用storeinc插件:
-  // Set configuration
-  var version='1.0.6' //这里是版本，使用storeinc就要遵循它的规范
-  seajs.config({
-    base: "../sea-modules/",
-    alias: {
-      "jquery": "jquery/jquery/1.10.1/jquery.js"
-    }
-  });
-  //使用use来启用storeinc插件
-  seajs.use('plugin-storeinc', function(store) {
-  /storeinc插件设置
-  //store 表示启用本地存储
-  //inc 表示启用增量更新插件
-  //jsver 表示版本
-  //aliasver 表示定义了别名的js的版本，这个跟其他脚本做了区分，不走增量更新
-  //debug 表示是不是在调试状态，如果是则不走本地存储和增量更新
-    store.configStroreInc({'store':true,'inc':true,'jsver':version,'aliasver':'1.10.2','debug':false});
-    // For development
-    if (location.href.indexOf("?dev") > 0) {
-      seajs.use("../static/hello/src/main");
-    }
-    // For production
-    else {
-      seajs.use("examples/hello/"+version+"/main");
-    }
-  });
+    // Set configuration
+    var version='1.0.6' //这里是版本，使用storeinc就要遵循它的规范
+    seajs.config({
+      base: "../sea-modules/",
+      alias: {
+        "jquery": "jquery/jquery/1.10.1/jquery.js"
+      }
+    });
+    //使用use来启用storeinc插件
+    seajs.use('plugin-storeinc', function(store) {
+    /storeinc插件设置
+    //store 表示启用本地存储
+    //inc 表示启用增量更新插件
+    //jsver 表示版本
+    //aliasver 表示定义了别名的js的版本，这个跟其他脚本做了区分，不走增量更新
+    //debug 表示是不是在调试状态，如果是则不走本地存储和增量更新
+      store.configStroreInc({'store':true,'inc':true,'jsver':version,'aliasver':'1.10.2','debug':false});
+      // For development
+      if (location.href.indexOf("?dev") > 0) {
+        seajs.use("../static/hello/src/main");
+      }
+      // For production
+      else {
+        seajs.use("examples/hello/"+version+"/main");
+      }
+    });
 
 接下来安装构建工具spm-storeinc-build
 > npm install spm-storeinc-build -g
@@ -43,19 +43,19 @@ js本地存储和增量更新seajs插件使用
 然后到static/hello目录下修改package.json构建配置文件为清单5所示内容
 清单5. 构建配置文件内容
 
-  {
-    "family": "examples",
-    "name": "hello",
-    "lastversion":"1.0.5", //上个版本号（如果是第一次可以不写）
-    "version": "1.0.6",//本次版本号
-    "chunkSize":12,//增量更新块大小，填12即可,也可以填其他
-    "spm": {
-      "alias": {
-        "jquery": "jquery"
-      },
-      "output": ["main.js", "style.css"]
+    {
+      "family": "examples",
+      "name": "hello",
+      "lastversion":"1.0.5", //上个版本号（如果是第一次可以不写）
+      "version": "1.0.6",//本次版本号
+      "chunkSize":12,//增量更新块大小，填12即可,也可以填其他
+      "spm": {
+        "alias": {
+          "jquery": "jquery"
+        },
+        "output": ["main.js", "style.css"]
+      }
     }
-  }
 
 然后在该目录下运行spm-storeinc-build 构建工具下会在dist目录下生成混淆后的js文件.如图5所示:
 
