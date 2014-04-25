@@ -8,6 +8,7 @@ php proxy 使用方法
     RewriteRule storeinc/(.+).js$ storeinc.php?file=$1
 
 然后在首页配置js
+
     <script type="text/javascript" id="file_config">
         var g_config = {
             jsmap:{

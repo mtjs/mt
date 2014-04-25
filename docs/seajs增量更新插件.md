@@ -13,6 +13,7 @@ storeinc (https://github.com/luyongfugx/storeinc) seajs用户通过使用这个�
 
 打开app目录下的hello.html,里面已经嵌入了storeinc插件如清单3所示:
 清单3. 嵌入storeinc代码
+
   <script src="../sea-modules/seajs/seajs/2.1.1/plugin-storeinc.js"></script>
 
 并且通过清单4的代码启用了本地存储和增量更新插件

@@ -49,6 +49,7 @@ js本地存储和增量更新requirejs插件使用
 > ver:'3',//新版版本好号
 
 然后在index.html里面加入如下代码（请看js/requirejs下的index.html）:
+
     <script>
     //storeinc相关配置
 		var require = {
