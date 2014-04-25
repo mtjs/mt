@@ -2,10 +2,10 @@ js本地存储和增量更新seajs插件使用
 =================================
 
 用增量更新这个算法写了一个seajs插件
-storeinc (https://github.com/luyongfugx/storeinc)seajs用户通过使用这个插件结合为之编写的构建工具spm-storeinc-build()
+storeinc (https://github.com/luyongfugx/storeinc) seajs用户通过使用这个插件结合为之编写的构建工具spm-storeinc-build()
 就可以很容易的集成本地存储和增量更新功能
 下面我们通过一个例子来展示一下如何使用这个插件.这个例子通过修改seajs官方examples的hello例子来引入storeinc.到
-https://github.com/luyongfugx/storeinc/tree/master/
+https://github.com/luyongfugx/storeinc/tree/master/ 
 
 把里面的demo目录下载到自己的web服务器。 
 打开sea-moudles/seajs/seajs/2.1.1/目录
