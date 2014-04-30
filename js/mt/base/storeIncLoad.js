@@ -161,7 +161,8 @@ var storeIncLoad= (function () {
     }
    //ajax 获取js内容，服务器需要指出跨域
     function xhr(url, callback) {
-        var r = window.ActiveXObject ? new window.ActiveXObject('Microsoft.XMLHTTP'): new window.XMLHttpRequest()
+       // var r = window.ActiveXObject ? new window.ActiveXObject('Microsoft.XMLHTTP'): new window.XMLHttpRequest()
+        var r = new window.XMLHttpRequest()
         r.open('GET', url, true)
         r.onreadystatechange = function() {
             if (r.readyState === 4) {
@@ -178,9 +179,9 @@ var storeIncLoad= (function () {
     //eval js
     function globalEval(data) {
         if (data && /\S/.test(data)) {
-            (window.execScript || function(data) {
+           // (window.execScript || function(data) {
                 window['eval'].call(window, data)
-            })(data)
+           // })(data)
         }
     }
     return {
