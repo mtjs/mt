@@ -28,7 +28,7 @@
         var setJsMap = function (map) {
             jsMap = map;
         };
-        
+
         var each = function (arr, cb) {
             var i,
                 n = (arr || []).length;
@@ -116,8 +116,11 @@
             });
             return flag;
         };
-        var loadScript = function (url, cb) {
-			url=path+"/"+url;
+        var loadScript = function (url, cb,isStoreLoad) {
+            if(!isStoreLoad){
+                url=path+"/"+url;
+            }
+
             var script;
             script = document.createElement('script');
             script.async = true;
@@ -125,9 +128,9 @@
             script.src = url;
             document.head.appendChild(script);
         };
-		var getLoader = function () {
-			return loadScript;
-		};
+        var getLoader = function () {
+            return loadScript;
+        };
         var unreg = function (name, fn) {
             delete map[name];
         };
@@ -138,17 +141,17 @@
             conf.staticPath && setJsPath(conf.staticPath);
             conf.jsmap && setJsMap(conf.jsmap);
         };
-		var updateLoader = function (loader) {
-			var orgloader = loadScript;
-			(typeof loader == 'function') && (loadScript = function (url, cb){loader(url, cb, orgloader)});
-		};
+        var updateLoader = function (loader) {
+            var orgloader = loadScript;
+            (typeof loader == 'function') && (loadScript = function (url, cb){loader(url, cb, orgloader)});
+        };
         return {
             define : reg,
             undefine : unreg,
             setPath : setJsPath,
             setMap : setJsMap,
             require : load,
-			updateLoader: updateLoader,
+            updateLoader: updateLoader,
             loadScript : loadScript,
             init: init
         }
@@ -158,20 +161,20 @@
     global.MT = global.MT || {};
     /*
      设置 参数格式 
-	 {
-         jspath: 'xx', // js路径
-         jsMap: {
-             'a': '../js/a.js' //模块名与路径对应关系
-         }
+     {
+     jspath: 'xx', // js路径
+     jsMap: {
+     'a': '../js/a.js' //模块名与路径对应关系
      }
-    */
-	global.MT.updateScriptLoader = function (loader) {
-		core.updateLoader(loader);
-	};
-	var oldconfig = MT.config;
+     }
+     */
+    global.MT.updateScriptLoader = function (loader) {
+        core.updateLoader(loader);
+    };
+    var oldconfig = MT.config;
     global.MT.config = function (conf) {
         global.MT.conf = conf;
         core.init(conf);
-		oldconfig && oldconfig(conf);
+        oldconfig && oldconfig(conf);
     };
 })();

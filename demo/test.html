@@ -21,6 +21,14 @@
                 'p3': 'page/p3.js'
             },
             storeInc:{
+                //统计回调，统计脚本请求情况,jsUrl是js地址，mode是请求模式，full:表示全量请求，inc表示增量请求，local表示从本地存储读取
+                'statFunc':function(jsUrl,mode){
+                    console.log('get '+jsUrl+' from '+mode);
+                },
+                //写本地存储异常回调，将脚本内容写入本地存储出现异常的时候调用，用来提供给业务清理本地存储，storekey表示写如的key
+                'storeExFunc':function(storeKey){
+                    console.log('set store item '+storeKey+' exception') ;
+                },
                 'store': true,
                 'inc': true,
 				'proxy':true,
@@ -30,7 +38,7 @@
             staticPath: '/release',
 			serverDomain: 'http://localhost:6600',
             buildType: 'project',
-            ver: '2014012000050'
+            ver: '2014050500049'
         };
     </script>
     <script src="js/mt/core.js"></script>

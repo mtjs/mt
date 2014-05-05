@@ -1,0 +1,1 @@
+define("init",["util","p1"],function(){console.log(" init depend on util p1 ok!"),document.write("init depend on util p1 ok!</br>")}),define("util",[],function(){console.log("util ok!"),document.write("util ok!</br>")});

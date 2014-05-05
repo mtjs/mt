@@ -7,7 +7,9 @@
  */
 var storeIncLoad= (function () {
     //是否用本地存储，是否增量更新，本次版本号，是否debug状态，如果是debug状态默认走原文方式
-    var storeInc={'store':false,'inc':false,'jsver':'2013083001001','debug':true,proxy:false};
+    var storeInc={'store':false,'inc':false,'jsver':'2013083001001','debug':true,proxy:false,statFunc:function(jsUrl,mode){
+        console.log('get '+jsUrl+' from '+mode);
+    },storeExFunc:function(storeKey){console.log('set store item '+storeKey+' exception')}};
     var init=function(o){
         storeInc=o;
     };
@@ -32,7 +34,13 @@ var storeIncLoad= (function () {
             }
             return supported;
         }
-        catch(err) { return false }
+        catch(err) {
+
+            if(storeInc.storeExFunc&&'QuotaExceededError'==err.name){
+                storeInc.storeExFunc("isLocalStorageNameSupportederr");
+            }
+            return false
+        }
     };
     //根据参数和执行情况
     var loadScript = function (url, ver, buildType, scriptCall, callback) {
@@ -50,15 +58,15 @@ var storeIncLoad= (function () {
             catch(ex){
                 //如果异常则走script方式
                 var realUrlx=storeInc.debug?url:urlParse(url,ver,-10,false,buildType);
-                scriptCall&&scriptCall(realUrlx, callback);
+                scriptCall&&scriptCall(realUrlx, callback,true);
                 return true;
             }
             //获取上一个版本
             var lastver = lastverStr ? parseInt(lastverStr) : -10;
             //获取本地版本
             var jsver = parseInt(ver);
-          //根据版本判断是不是可以增量更新，mtbuid方式的话版本后3位加1的话会，
-          // 如果是servlet proxy方式下则只要本地有上个版本就会走
+            //根据版本判断是不是可以增量更新，mtbuid方式的话版本后3位加1的话会，
+            // 如果是servlet proxy方式下则只要本地有上个版本就会走
             var inc = (storeInc.inc && canInc(lastverStr, ver) && jsCode) ? true : false;
             //拼凑jsurl真是地址
             var realUrl = urlParse(url, ver, lastver, inc, buildType);
@@ -66,6 +74,9 @@ var storeIncLoad= (function () {
             if(jsCode && lastver == jsver && !storeInc.debug){
                 globalEval(jsCode);
                 callback&&callback();
+                if(storeInc.statFunc){
+                    storeInc.statFunc(url,'local');
+                }
             } else {
                 //根据url用ajax去请求js内容
                 try{
@@ -75,35 +86,57 @@ var storeIncLoad= (function () {
                             var incData= JSON.parse(data);
                             var checksumcode=incData.data;
                             jsCode=incData.modify?mergejs(jsCode,incData.chunkSize,checksumcode):jsCode;
+                            //统计回调
+                            if(storeInc.statFunc){
+                                storeInc.statFunc(url,'inc');
+                            }
+                            //:function(jsUrl,mode)
                         }else{
+                            //统计回调
+                            if(storeInc.statFunc){
+                                storeInc.statFunc(url,'full');
+                            }
                             //全量模式
                             jsCode=data;
                         }
                         try{
-                           // console.log(jsCode);
+                            // console.log(jsCode);
                             //eval js代码，执行回调,写入本地存储
                             globalEval(jsCode);
                             callback && callback();
                             localStorage.setItem(storeKey,jsCode);
                             localStorage.setItem(storeKey+"?ver",ver);
                         }catch(e){
-                           //如果有异常，删除本地存储
-                            console.log(e);
+                            //如果有异常，删除本地存储
+                            //console.log(e);
                             localStorage.removeItem(storeKey);
                             localStorage.removeItem(storeKey+"?ver");
+                            //如果定义了本地存储异常回调函数，则调用回调函数,可以用来清理本地存储
+                            if(storeInc.storeExFunc){
+                                storeInc.storeExFunc(storeKey);
+                            }
                         }
                     });
                 }
-                //如果有异常调用script方式载入js
+                    //如果有异常调用script方式载入js
                 catch(ex){
-                    scriptCall&&scriptCall( realUrl, callback);
+                    scriptCall&&scriptCall( realUrl, callback,true);
+                    //统计回调
+                    if(storeInc.statFunc){
+                        storeInc.statFunc(url,'full');
+                    }
                     return true;
                 }
             }
         }else{
             //非本地存储方式
             var realUrl=storeInc.debug?url:urlParse(url,ver,-10,false,buildType);
-            scriptCall&&scriptCall(realUrl, callback);
+            console.log(realUrl+" "+url);
+            scriptCall&&scriptCall(realUrl, callback,true);
+            //统计回调
+            if(storeInc.statFunc){
+                storeInc.statFunc(url,'full');
+            }
             return true;
         }
         return false;
@@ -111,7 +144,7 @@ var storeIncLoad= (function () {
     //版本号码最后3位是不是相差1，如果走servlet proxy方式则肯定返回ture
     function canInc(lastver,jsver){
         if(storeInc.proxy){
-                 return true;
+            return true;
         }
         // build 方式转换测试
         var plva = (lastver.toString()).length === 13;
@@ -140,7 +173,7 @@ var storeIncLoad= (function () {
         }
 
         return inc ? url.replace(".js","-"+lastver+"_"+ver+".js") :
-        url.replace(".js","-"+ver+".js");
+            url.replace(".js","-"+ver+".js");
     }
     //根据旧数据和增量数据合成新js内容
     function mergejs(source,trunkSize,checksumcode){
@@ -159,9 +192,9 @@ var storeIncLoad= (function () {
         }
         return strResult;
     }
-   //ajax 获取js内容，服务器需要指出跨域
+    //ajax 获取js内容，服务器需要指出跨域
     function xhr(url, callback) {
-       // var r = window.ActiveXObject ? new window.ActiveXObject('Microsoft.XMLHTTP'): new window.XMLHttpRequest()
+        // var r = window.ActiveXObject ? new window.ActiveXObject('Microsoft.XMLHTTP'): new window.XMLHttpRequest()
         var r = new window.XMLHttpRequest()
         r.open('GET', url, true)
         r.onreadystatechange = function() {
@@ -179,9 +212,9 @@ var storeIncLoad= (function () {
     //eval js
     function globalEval(data) {
         if (data && /\S/.test(data)) {
-           // (window.execScript || function(data) {
-                window['eval'].call(window, data)
-           // })(data)
+            // (window.execScript || function(data) {
+            window['eval'].call(window, data)
+            // })(data)
         }
     }
     return {
@@ -193,51 +226,51 @@ var storeIncLoad= (function () {
 
 
 (function () {
-	var oldconfig = MT.config;
-	        console.log('updateScriptloader');
-	MT.config = function (conf) {
-		MT.conf = conf;
-		storeIncLoad.init(conf.storeInc);
-		oldconfig && oldconfig(conf);
-	};
+    var oldconfig = MT.config;
+    console.log('updateScriptloader');
+    MT.config = function (conf) {
+        MT.conf = conf;
+        storeIncLoad.init(conf.storeInc);
+        oldconfig && oldconfig(conf);
+    };
 
-	// 升级MT的scriptloader
-	MT.updateScriptLoader(function (url, cb, orgloader) {
+    // 升级MT的scriptloader
+    MT.updateScriptLoader(function (url, cb, orgloader) {
 
-		var filePath, jsPath, ver, fs, buildType, realPath;
-		var config = MT.conf;
-		var cs, css;
-		if(config.testEnv) {
-			orgloader(url, cb);
-		}else{
+        var filePath, jsPath, ver, fs, buildType, realPath;
+        var config = MT.conf;
+        var cs, css;
+        if(config.testEnv) {
+            orgloader(url, cb);
+        }else{
             console.log(url);
-			// 判断版本类型 完整加载路径 page可默认
-			filePath =url;// config.jsmap[name] || (config.jspath + name + '.js');
-			jsPath =config.serverDomain+ config.staticPath;
-			ver = config.ver;
-			fs = filePath.split('?');
-			buildType = config.buildType;
+            // 判断版本类型 完整加载路径 page可默认
+            filePath =url;// config.jsmap[name] || (config.jspath + name + '.js');
+            jsPath =config.serverDomain+ config.staticPath;
+            ver = config.ver;
+            fs = filePath.split('?');
+            buildType = config.buildType;
 
-			if(buildType === 'project') {
-				jsPath = jsPath + '/' + ver;
-			} else {
-				if(fs.length === 1) {
-					ver = '001';
-					for(cs in config.jsmap) {
-						if(config.jsmap[cs].indexOf(fs[0]) === 0){
-							css = config.jsmap[cs].split('?');
-							if(css.length === 2) {
-								ver = css[1];
-							}
-						}
-					}
-				} else {
-					ver = fs[1];
-				}
-			}
-			realPath = jsPath + "/"+fs[0];
+            if(buildType === 'project') {
+                jsPath = jsPath + '/' + ver;
+            } else {
+                if(fs.length === 1) {
+                    ver = '001';
+                    for(cs in config.jsmap) {
+                        if(config.jsmap[cs].indexOf(fs[0]) === 0){
+                            css = config.jsmap[cs].split('?');
+                            if(css.length === 2) {
+                                ver = css[1];
+                            }
+                        }
+                    }
+                } else {
+                    ver = fs[1];
+                }
+            }
+            realPath = jsPath + "/"+fs[0];
 
-			storeIncLoad.loadScript(realPath, ver, buildType, orgloader);
-		}
-	});
+            storeIncLoad.loadScript(realPath, ver, buildType, orgloader);
+        }
+    });
 })();

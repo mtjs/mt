@@ -116,8 +116,11 @@
             });
             return flag;
         };
-        var loadScript = function (url, cb) {
-			url=path+"/"+url;
+        var loadScript = function (url, cb,isStoreLoad) {
+            if(!isStoreLoad){
+                url=path+"/"+url;
+            }
+
             var script;
             script = document.createElement('script');
             script.async = true;

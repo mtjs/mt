@@ -1,0 +1,1 @@
+{"modify":true,"chunkSize":12,"data":[[0,3],"(){console.log(\" init depend on util p1 ok!\"),document.write(\"init depend on util p1 ok!</br>\")}),define",[4,1],"unction(){console.log(\"util ok!\"),document.write(\"util o","k!</br>\")});"]}

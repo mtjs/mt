@@ -1,0 +1,1 @@
+{"modify":true,"chunkSize":12,"data":[[0,2],"){console.log(\"p2 ok!\"),document.write(\"p2 o","k!</br>\")});"]}
