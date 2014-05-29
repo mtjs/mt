@@ -1,0 +1,38 @@
+{
+    "name": "mtbuild",
+    "description": "The build and upload tool of MT.",
+    "version": "0.0.3",
+    "author": {
+        "name": "rocksun",
+        "email": "rocksun@tencent.com"
+    },
+    "contributors": [
+        {
+            "name": "waynelu",
+            "email": "waynelu@tencent.com"
+        }
+    ],
+    "keywords": [
+        "build",
+        "mt",
+        "upload"
+    ],
+    "dependencies": {
+        "colors": "0.6.2",
+        "cli-table": "0.2.0",
+        "uglify-js": "2.4.0"
+    },
+    "main": "./mtbuild.js",
+    "engines": {
+        "node": ">= 0.8.0"
+    },
+    "preferGlobal": "true",
+    "bin": {
+        "mtbuild": "mtbuild.js",
+        "mtupload": "mtupload.js"
+    },
+    "readme": "MT BUILD\n=========\n\nThe build and upload tool of MT.\n",
+    "readmeFilename": "README.md",
+    "_id": "mtbuild@0.0.3",
+    "_from": "mtbuild@"
+}
