@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,user-scalable=no" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>MT Demo</title>
+</head>
+<body>
+    <div>
+        <span>Hello world</span>
+    </div>
+
+    <script type="text/javascript" id="file_config">
+        var g_config =  {
+            jsmap:{
+                'init': 'base.js',
+                'util': 'base.js',
+                'p1': 'page/p1.js',
+                'p2': 'page/p2.js',
+                'p3': 'page/p3.js'
+            },
+            storeInc:{
+                //统计回调，统计脚本请求情况,jsUrl是js地址，mode是请求模式，full:表示全量请求，inc表示增量请求，local表示从本地存储读取
+                'statFunc':function(jsUrl,mode){
+                    console.log('get '+jsUrl+' from '+mode);
+                },
+                //写本地存储异常回调，将脚本内容写入本地存储出现异常的时候调用，用来提供给业务清理本地存储，storekey表示写如的key
+                'storeExFunc':function(storeKey){
+                    console.log('set store item '+storeKey+' exception') ;
+                },
+                'store': true,
+                'inc': true,
+                'proxy':true,
+                'debug': false
+            },
+            //是否走combo,同时支持conf指定哪几个js是合并下载的
+
+            combo:{cb:true,conf:[]},
+            testEnv: false,
+            staticPath: '/release',
+            //serverDomain: 'http://localhost:8080/testweb/storeinc',
+            serverDomain: 'http://localhost:6600',
+            buildType: 'project',
+            //ver:'2014052900062'
+           ver: '2014052900062'
+            //ver: '2014051200050'
+        };
+        //如果是测试则修改一下映射
+        if(g_config.testEnv){
+            g_config.jsmap={
+                'init': 'init.js',
+                'util': 'util.js',
+                'p1': 'page/p1.js',
+                'p2': 'page/p2.js',
+                'p3': 'page/p3.js'
+            };
+            g_config.staticPath='/js';
+            g_config.serverDomain='http://localhost:6600';
+            g_config.combo={cb:false,conf:["init,util,p1,p2,p3"]};
+        }
+    </script>
+    <script src="js/mt/core.js"></script>
+    <script src="js/mt/storeIncLoad.js"></script>
+
+    <script type="text/javascript">
+        MT.config(g_config);
+        require('init');
+    </script>
+</body>
+</html>
