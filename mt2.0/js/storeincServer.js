@@ -166,7 +166,7 @@ function makeIncDataFile(oldFileContent,newFile){
         strDataArray=lcfDiff.getDiff(oldFileContent,newFileContent);
     }
     else{
-        strDataArray=chunkDiff.getDiff(oldFileContent,newFileContent);
+        strDataArray=chunkDiff.getDiff(oldFileContent,newFileContent,chunkSize);
     }
 
     resultFile.data=strDataArray;

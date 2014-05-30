@@ -60,7 +60,7 @@ function makeIncDataFile(oldFileContent,newFile,js){
         strDataArray=lcfDiff.getDiff(oldFileContent,newFileContent);
     }
     else{
-        strDataArray=chunkDiff.getDiff(oldFileContent,newFileContent);
+        strDataArray=chunkDiff.getDiff(oldFileContent,newFileContent,chunkSize);
         resultFile.inc=true;
     }
     resultFile.data=strDataArray;

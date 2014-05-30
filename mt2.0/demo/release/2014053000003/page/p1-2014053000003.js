@@ -1,0 +1,1 @@
+define("p1",["p2","p3"],function(){var p={k:"v"};return console.log("p1 depend on p2 p3 ok!"),document.write("p1 depend on p2 p3 ok!</br>"),p});

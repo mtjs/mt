@@ -6,7 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 //用chunkDiff算法
-exports.getDiff=function chunkDiff(oldFileContent,newFileContent){
+var crypto = require('crypto');
+exports.getDiff=function chunkDiff(oldFileContent,newFileContent,chunkSize){
     var strDataArray=new Array();
     var oldChecksum=oldFileChecksum(oldFileContent,chunkSize);
     var diffArray=searchChunk(newFileContent,oldChecksum,chunkSize);
