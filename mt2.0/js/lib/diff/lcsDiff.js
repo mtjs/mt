@@ -71,7 +71,7 @@ exports.getDiff=function lcsDiff(source,target){
     //console.log(disMatrix);
     //console.log(stepMatrix);
     var diff=[];
-    for(i=sourceArr.length,j=targetArr.length;i>0||j>0;){
+    for(i=sourceArr.length,j=targetArr.length;i>0&&j>0;){
         var step=stepMatrix[i][j];
         switch(step){
             case SAME:
