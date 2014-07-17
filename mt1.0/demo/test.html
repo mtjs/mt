@@ -12,7 +12,7 @@
     </div>
 
     <script type="text/javascript" id="file_config">
-        var g_config =  {
+        var g_config = {
             jsmap:{
                 'init': 'base.js',
                 'util': 'base.js',
@@ -31,34 +31,15 @@
                 },
                 'store': true,
                 'inc': true,
-                'proxy':true,
+				'proxy':true,
                 'debug': false
             },
-            //是否走combo,同时支持conf指定哪几个js是合并下载的
-
-            combo:{cb:true,conf:["init,util","p1,p2,p3"]},
             testEnv: false,
             staticPath: '/release',
-            //serverDomain: 'http://localhost:8080/testweb/storeinc',
-            serverDomain: 'http://localhost:6600',
+			serverDomain: 'http://localhost:6600',
             buildType: 'project',
-            //ver:'2014052900062'
-           ver: '2014053000003'
-            //ver: '2014051200050'
+            ver: '2014050500049'
         };
-        //如果是测试则修改一下映射
-        if(g_config.testEnv){
-            g_config.jsmap={
-                'init': 'init.js',
-                'util': 'util.js',
-                'p1': 'page/p1.js',
-                'p2': 'page/p2.js',
-                'p3': 'page/p3.js'
-            };
-            g_config.staticPath='/js';
-            g_config.serverDomain='http://localhost:6600';
-            g_config.combo={cb:false,conf:["init,util,p1,p2,p3"]};
-        }
     </script>
     <script src="js/mt/core.js"></script>
     <script src="js/mt/storeIncLoad.js"></script>
