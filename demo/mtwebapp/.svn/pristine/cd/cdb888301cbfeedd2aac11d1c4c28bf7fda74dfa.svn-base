@@ -1,0 +1,35 @@
+<%@ page import="java.util.*"%>
+<%@ page import="com.qq.core.*"%>
+<%@ page import="com.qq.jutil.net.NetUtil"%>
+<%@ page import="com.qq.jutil.string.StringUtil"%>
+<%@ page import="com.qq.infoapp.util.InfoappStatLogUtil"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.qq.infoutil.net.NetUtilEx"%>
+<%@ page import="com.qq.infocommon.operations.domain.OperationDataItem"%>
+<%@ page import="com.qq.infocommon.operations.OperatingDataClient"%>
+<%@ page import="com.qq.webutil.common.BrowserFeatureUtil"%>
+<%@ page import="com.qq.jutil.j4log.Logger"%>
+<%@ include file="/for_include/head.jsp"%>
+<%
+    Logger l = Logger.getLogger("jsp");
+    boolean isLogin = s_user.isLogin3G();
+    long uinL = s_user.getUinL();
+    String user_logo = "";
+    String info_news_comment_mqqlink="";
+    String userImg="";
+    try{
+        if(request.getSession().getAttribute("userImg") != null){
+            user_logo = request.getSession().getAttribute("userImg").toString();
+        }
+    }catch(Exception e){
+    }
+    boolean testEnv = false;
+    String apiUrl= "/g/";
+    String articleApiUrl= "/g/";
+    if( request.getServerName().contains("kf0309") ){
+        testEnv = true;
+        articleApiUrl="http://waynelu.kf0309.3g.qq.com/infoapp/";
+        apiUrl="http://tencentsun.kf0309.3g.qq.com/finance/";
+    }
+
+%>

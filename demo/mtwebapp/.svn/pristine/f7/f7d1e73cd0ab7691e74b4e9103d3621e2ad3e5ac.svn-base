@@ -1,0 +1,89 @@
+define('init', ['jqmobi', 'pm', 'basepage', 'iScroll', 'txTpl', 'msgMod',
+  'mock', 'loadIngModule', 'loginMod'
+], function($, PM, BasePage, iScroll, txTpl, msgMod, mock, loadIngModule,
+  loginMod) {
+  loginMod.init({
+    sid: window.CONFIG.USER.sid,
+    islogin: window.CONFIG.USER.isLogin
+  });
+  var setUserLogo = function(userimage) {
+    $('#t_login_btn').addClass('logined');
+    $('#t_headimage').show();
+    $('#t_headimage').attr('src', userimage);
+    $('.t_login').text('退出');
+    window.loginText = '退出';
+  };
+  if (loginMod.isLogin()) {
+    setUserLogo(window.CONFIG.USER.userImg);
+    $('.t_login').text('退出');
+    window.loginText = '退出';
+  } else {
+    window.loginText = '登录';
+  }
+  window.footerHtml = function() {
+    var footerHtml = '<footer class="footer live-footer">' + '<nav>' +
+      '<a class="lv-left w-footer-mqq  t_tohome">腾讯</a>' +
+      '<a class="lv-left t_tonews" data-href="http://gp.3g.qq.com/g/s?aid=stock_h">股票</a>' +
+      '<a class="t_login">' + window.loginText + '</a>' +
+      '<a  class=" t_leave-msg" data-href="http://infoapp.3g.qq.com/g/s?aid=touchmsg&pku_name=lm_xiaodao">反馈</a>' +
+      '</nav>' + '</footer>';
+    return footerHtml;
+  }; /**首页 */
+  $('#t_page').delegate('.t_tohome', 'click', function(e) {
+    location.href = 'http://info.3g.qq.com/g/s?aid=index&sid=' + loginMod.getSid();
+  }); /**留言 */
+  $('#t_page').delegate('.t_leave-msg', 'click', function(e) {
+    var str = '&sid=' + loginMod.getSid() + '&backurl=' +
+      encodeURIComponent('http://' + location.host + location.pathname +
+        location.search + location.hash);
+    location.href = ($(this).attr('data-href') + str);
+  }); /**新闻 */
+  $('#t_page').delegate('.t_tonews', 'click', function(e) {
+    var str = '&sid=' + loginMod.getSid();
+    location.href = ($(this).attr('data-href') + str);
+  });
+  msgMod.listen('loginok', function(user) {
+    setUserLogo(user.head);
+    $('.t_login').text('退出');
+  });
+  msgMod.listen('loginout', function() {}); /** */ /**隐藏地址栏 屏幕旋转绑定 */
+  $(window).bind('orientationchange', function() {
+    $.trigger(window, 'heightChange');
+    PM.notify('orientationChange');
+  }); /**异步请求 loading 显示 */
+  $.bind(window, 'ajaxBeforeSend', function() {
+    loadIngModule.show();
+  });
+  $.bind(window, 'ajaxComplete', function() {
+    loadIngModule.hide();
+  });
+  var headViewRender = function(pageid) {
+    var leftBtn = $('.t_header_back');
+    if (pageid == 'index') {
+      leftBtn.hide();
+    } else {
+      leftBtn.show();
+    }
+  };
+  $.bind(window, 'vpageEnter', function(params) {
+    headViewRender(params.curPage);
+  }); /** 底部登录组件 */
+  $('#t_page').delegate('.t_login', 'click', function() {
+    if (loginMod.isLogin()) {
+      loginMod.loginOut();
+    } else {
+      loginMod.login(function() {});
+    }
+  });
+  $('#t_page').delegate('#t_login_btn', 'click', function() {
+    if (loginMod.isLogin()) {} else {
+      loginMod.login(function() {});
+    }
+  }); /**返回 */
+  $('.t_header_back').bind('click', function(e) {
+    window.history.go(-1);
+  });
+  PM.init({
+    home: "index"
+  });
+})

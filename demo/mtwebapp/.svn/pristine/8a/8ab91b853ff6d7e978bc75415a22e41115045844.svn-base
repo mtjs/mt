@@ -1,0 +1,126 @@
+/**  *create by mtWebappCreater  */
+define('index', ['jqmobi', 'pm', 'basepage', 'txTpl', 'mock', 'loginMod',
+  'tipsModule'
+], function($, pm, basepage, txTpl, mock, loginMod, tipsModule) {
+  var tpl = '<header class=\"header\">' +
+    '<h1>手机腾讯网 · 视频</h1>' +
+    '<a class=\"left ihome\" href=\"#center\"></a>' +
+    '<a class=\"right icenter\" href=\"#list\"><img class=\"ihead\" src=\"https://avatars1.githubusercontent.com/u/1996344?s=460\" alt=\"\"></a>' +
+    '</header>' +
+    '' +
+    '<div class=\"live-tab\">' +
+    '<nav class=\"tab\">' +
+    '<li class=\"ihot selected\">热播</li>' +
+    '<li class=\"ichannel\">频道</li>' +
+    '</nav>' +
+    '</div>' +
+    '' +
+    '<div class=\"content\">' +
+    '<div class=\"list-image\">' +
+    '<ul>' +
+    '<li>' +
+    '<a href=\"javascript:;\" class=\"u-img\">' +
+    '<img src=\"images/img/3.jpg\" alt=\"\" class=\"img\">' +
+    '<img src=\"images/iplay.png\" alt=\"\" class=\"iplay\">' +
+    '<time class=\"vtime\">02:25</time>' +
+    '</a>' +
+    '<a href=\"javascript:;\" class=\"u-info\">' +
+    '<h2 class=\"u-title\">传潘石屹打航女工</h2>' +
+    '<div class=\"u-status\">' +
+    '<i class=\"ilike\">123456</i>' +
+    '<i class=\"icomment\">123456</i>' +
+    '</div>' +
+    '</a>' +
+    '</li>' +
+    '<li>' +
+    '<a href=\"javascript:;\" class=\"u-img\">' +
+    '<img src=\"images/img/4.jpg\" alt=\"\" class=\"img\">' +
+    '<img src=\"images/iplay.png\" alt=\"\" class=\"iplay\">' +
+    '<time class=\"vtime\">02:25</time>' +
+    '</a>' +
+    '<a href=\"javascript:;\" class=\"u-info\">' +
+    '<h2 class=\"u-title\">一二三四五六七八九十一二三四五六七八</h2>' +
+    '<div class=\"u-status\">' +
+    '<i class=\"ilike\">123456</i>' +
+    '<i class=\"icomment\">123456</i>' +
+    '</div>' +
+    '</a>' +
+    '</li>' +
+    '<li>' +
+    '<a href=\"javascript:;\" class=\"u-img\">' +
+    '<img src=\"images/img/3.jpg\" alt=\"\" class=\"img\">' +
+    '</a>' +
+    '<a href=\"javascript:;\" class=\"u-info\">' +
+    '<h2 class=\"u-title\">传潘石屹打航女工</h2>' +
+    '<div class=\"u-status\">' +
+    '<i class=\"ilike\">123456</i>' +
+    '<i class=\"icomment\">123456</i>' +
+    '</div>' +
+    '</a>' +
+    '</li>' +
+    '<li>' +
+    '<a href=\"javascript:;\" class=\"u-img\">' +
+    '<img src=\"images/img/3.jpg\" alt=\"\" class=\"img\">' +
+    '<img src=\"images/iplay.png\" alt=\"\" class=\"iplay\">' +
+    '<time class=\"vtime\">02:25</time>' +
+    '</a>' +
+    '<a href=\"javascript:;\" class=\"u-info\">' +
+    '<h2 class=\"u-title\">传潘石屹打航女工</h2>' +
+    '<div class=\"u-status\">' +
+    '<i class=\"ilike\">123456</i>' +
+    '<i class=\"icomment\">123456</i>' +
+    '</div>' +
+    '</a>' +
+    '</li>' +
+    '</ul>' +
+    '<a class=\"btn get-more\" href=\"#\">查看更多</a>' +
+    '</div>' +
+    '</div>' +
+    '' +
+    '<footer class=\"footer\">' +
+    '<nav>' +
+    '<a class=\"ileft\" href=\"\">腾讯</a>' +
+    '<a class=\"ileft\" href=\"\">视频</a>' +
+    '<a class=\"iright\" href=\"\">退出</a>' +
+    '<a class=\"iright\" href=\"\">反馈</a>' +
+    '</nav>' +
+    '</footer>';
+  var indexPage = basepage.extend({
+    initialize: function() {
+      this.page.name = "index";
+      this.page.html = '<div class="virtualPage" page="' + this.page.name +
+        '"></div>';
+    },
+    enter: function() {
+      var _this = this;
+      if (false) { /*生成时候置为false,正式的时候置成true*/
+        _this.request({
+          url: window.apiUrl + "s?",
+          params: {
+            aid: 'action_api',
+            pageId: 'index',
+            action: ''
+          },
+          canUseCache: true,
+          success: function(data) {
+            _this.renderHtml(data);
+          }
+        });
+      } else {
+        _this.renderHtml({});
+      }
+    },
+    renderHtml: function(data) {
+      var thtml = txTpl(tpl, data);
+      this.page.wrapper.html(thtml);
+    },
+    leave: function() {},
+    back: function() {},
+    bindMethod: function() {
+      var _this = this,
+        jdom = this.jdom;
+      jdom.delegate('.test', "click", function() {});
+    }
+  });
+  new indexPage();
+})

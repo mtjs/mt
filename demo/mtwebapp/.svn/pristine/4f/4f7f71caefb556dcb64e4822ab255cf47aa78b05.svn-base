@@ -1,0 +1,133 @@
+<%@page import="com.qq.info.news.newsserver.Media" %>
+  <%@page import="com.qq.info.news.newsserver.client.NewsServiceClientFactory" %>
+    <%@ page contentType="text/html; charset=utf-8" language="java" %>
+      <%@ page import="com.qq.conf.ProfileManager" %>
+        <%@ page import="com.qq.oidb.OIDBService.KeyType" %>
+          <%@ page import="com.qq.portal.platform.tools.user.AvatarClient" %>
+            <%@ page import="com.qq.portal.platform.tools.user.GetUserDefineAvatarUrlRes" %>
+              <%@ page import="java.util.Arrays" %>
+                <%@ include file="include.jsp" %>
+                  <!DOCTYPE HTML>
+                  <html>
+
+                  <head>
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+                    <meta name="format-detection" content="telephone=no">
+                    <meta name="author" content="Tencent..gavinning" />
+                    <meta name="copyright" content="Copyright (c) 1998-2014 Tencent." />
+                    <meta name="description" content="手机腾讯网" />
+                    <title>mtwebapp</title>
+                    <style type="text/css">
+                      .virtualPage {
+                        display: none
+                      }
+                      .virtualPage[selected='true'] {
+                        display: block
+                      }
+                    </style>
+                    <%if(testEnv) {%>
+                      <link href="http://gavinning.kf0309.3g.qq.com/webapp_html/info/video/css/home.css" rel="stylesheet" type="text/css">
+                      <%} else {%>
+                        <link href="http://gavinning.kf0309.3g.qq.com/webapp_html/info/video/css/home.css" rel="stylesheet" type="text/css">
+                        <%}%>
+                          <link rel="stylesheet" type="text/css" href="http://3glogo.gtimg.com/wap30/info/info5/css/ptlogin_info.css" />
+                          <script>
+                            window.CONFIG = {};
+                            window.CONFIG.USER = {};
+                            window.CONFIG.USER.sid = "<%=sid%>";
+                            window.CONFIG.USER.qq = <%= uinL %> ;
+                            window.CONFIG.USER.isLogin = <%= isLogin %> ;
+                            window.CONFIG.mqqlink = "<%=info_news_comment_mqqlink%>";
+                            window.CONFIG.USER.userImg = "<%=userImg%>";
+                            window.apiUrl = "<%=apiUrl%>";
+                            window.isOs7 = (navigator.userAgent).indexOf('OS 7') !== -1;
+                            if (window.screen.height == 568) {
+                              document.querySelector('meta[name="viewport"]').content = "width=320,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no";
+                            }
+                          </script>
+                  </head>
+
+                  <body>
+                    <div id="t_page">
+                      <header class="header " id="t_header" style="position:fixed;width:100%;z-index:100;">
+                        <h1 class="title mediatitle">mtwebapp</h1> 
+                        <nav>
+                          <a class="left iback t_header_back" href="javascript:;" style="display:none"></a>
+                          <a class="icenter right " href="javascript:;" id='t_login_btn'>
+                            <img id='t_headimage' style="display:none" src="http://3gimg.qq.com/wap30/infoapp/touch/zhoukan/images/user-face-mark.png " alt="">
+                          </a>
+                        </nav>
+                      </header>
+                      <div id="scroll" style="padding-top:40px;z-index:1;overflow:hidden;">
+                        <div id="wrapper"></div>
+                      </div>
+                    </div>
+                    <%if(!testEnv) {%>
+                      <script type="text/javascript" id="file_config">
+                        var g_config = {
+                          jsmap: {
+                            "jqmobi": "/base.js",
+                            "pm": "/base.js",
+                            "basepage": "/base.js",
+                            "iScroll": "/base.js",
+                            "txTpl": "/base.js",
+                            "msgMod": "/base.js",
+                            "mock": "/base.js",
+                            "loadIngModule": "/base.js",
+                            "loginMod": "/base.js",
+                            "tipsModule": "/base.js",
+                            "loadUtil": "/base.js",
+                            "mockUtil": "/base.js",
+                            "mockRandom": "/base.js",
+                            "channel": "/pages/channel.js",
+                            "index": "/pages/index.js",
+                            "init": "/base.js"
+                          },
+                          storeInc: {
+                            "store": true,
+                            "inc": true,
+                            "debug": false
+                          },
+                          testEnv: false,
+                          staticPath: '/infocdn/info_app/mtwebapp',
+                          realPath: 'http://infocdn.3g.qq.com/g/storeinc',
+                          ver: '2014061900015',
+                          buildType: 'project'
+                        }
+                      </script>
+                      <%} else {%>
+                        <script type="text/javascript">
+                          var g_config = {
+                            jsmap: {
+                              "jqmobi": "/common/jqmobi.js",
+                              "pm": "/common/pm.js",
+                              "basepage": "/common/basepage.js",
+                              "iScroll": "/common/iScroll.js",
+                              "txTpl": "/common/txTpl.js",
+                              "msgMod": "/common/msgMod.js",
+                              "mock": "/common/mock.js",
+                              "loadIngModule": "/common/loadIngModule.js",
+                              "loginMod": "/common/loginMod.js",
+                              "tipsModule": "/common/tipsModule.js",
+                              "loadUtil": "/common/loadUtil.js",
+                              "mockUtil": "/common/mockUtil.js",
+                              "mockRandom": "/common/mockRandom.js",
+                              "channel": "/pages/channel.js",
+                              "index": "/pages/index.js",
+                              "init": "/init.js"
+                            },
+                            storeInc: {},
+                            staticPath: 'js',
+                            testEnv: true
+                          };
+                        </script>
+                        <%}%>
+                          <script type="text/javascript" src="http://3gimg.qq.com/wap30/info/storeIncLoad-core-cdnlog.js"></script>
+                          <script type="text/javascript">
+                            MT.config(g_config);
+                            require('init');
+                          </script>
+                  </body>
+
+                  </html>

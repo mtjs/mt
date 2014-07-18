@@ -1,0 +1,9 @@
+{
+  './release/{pv}/base-{pv}.js': {
+    files: ['js/common/jqmobi.js', 'js/common/pm.js', 'js/common/basepage.js', 'js/common/iScroll.js', 'js/common/txTpl.js', 'js/common/msgMod.js', 'js/common/mock.js', 'js/common/loadIngModule.js', 'js/common/loginMod.js', 'js/common/tipsModule.js', 'js/common/loadUtil.js', 'js/common/mockUtil.js', 'js/common/mockRandom.js', 'js/init.js']
+  },
+  'pages': {
+    dir: './js/pages',
+    releaseDir: './release/{pv}/pages/'
+  }
+}
