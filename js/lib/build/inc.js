@@ -6,7 +6,7 @@ var fs = require('fs'),
     chunkSize = 12,
     cdnDomain = cfg.getFileConfig().serverDomain;
 var chunkDiff = require('../diff/chunkDiff.js');
-var lcfDiff= require('../diff/lcsDiff.js');
+var lcfDiff= require('../diff/mixDiff.js');
 var getFileInfo = utils.getFileInfo;
 
 exports.build = function(incData, callback){

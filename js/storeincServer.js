@@ -10,7 +10,7 @@ var url = require("url");
 var fs = require('fs');
 var crypto = require('crypto');
 var chunkDiff = require('./lib/diff/chunkDiff.js');
-var lcfDiff= require('./lib/diff/lcsDiff.js');
+var mixDiff= require('./lib/diff/mixDiff.js');
 //块大小
 var chunkSize = 12;
 var argvs = process.argv;
@@ -163,7 +163,7 @@ function makeIncDataFile(oldFileContent,newFile){
         return resultFile;
     }
     if(diffAlg=='lcs'){
-        strDataArray=lcfDiff.getDiff(oldFileContent,newFileContent);
+        strDataArray=mixDiff.getDiff(0,oldFileContent,newFileContent);
     }
     else{
         strDataArray=chunkDiff.getDiff(oldFileContent,newFileContent,chunkSize);

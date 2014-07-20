@@ -6,6 +6,8 @@
  * getdiff data from lcs
  */
 exports.getDiff=function lcsDiff(source,target){
+    console.log("src:"+source);
+    console.log("tar:"+target);
     var SAME= 0,REPLACE= 1,DELETE= 2,INSERT=3;
     var sourceArr=source.split('');
     //var sLength=sourceArr.length;
@@ -68,11 +70,12 @@ exports.getDiff=function lcsDiff(source,target){
     }
 
 
-    //console.log(disMatrix);
+   // console.log(disMatrix);
     //console.log(stepMatrix);
     var diff=[];
-    for(i=sourceArr.length,j=targetArr.length;i>0&&j>0;){
+    for(i=sourceArr.length,j=targetArr.length;i>0||j>0;){
         var step=stepMatrix[i][j];
+        if(j-1<0) break;
         switch(step){
             case SAME:
                 diff[j-1]=[i,SAME];
@@ -93,14 +96,17 @@ exports.getDiff=function lcsDiff(source,target){
 
         }
     }
-    var preItem,tempStr='',tempArr,reArr=[];
+    var preItem,tempStr='',tempArr=[],reArr=[];
+     //console.log(diff);
     for(i=0;i<diff.length;i++){
         var item=diff[i];
+       // console.log(item);
+        //console.log(typeof(item));
         if(i==0){
             if(typeof(item)=='string'){
                 tempStr=item;
             }
-            else{
+            else if(typeof(item)=='object'){
                 tempArr=item;
                 tempArr[1]=1;
             }
@@ -121,7 +127,7 @@ exports.getDiff=function lcsDiff(source,target){
                     reArr.push(tempStr);
                     tempStr='';
                 }
-                else{
+                else if(typeof(preItem)=='object'){
                     if(preItem[0]==(item[0]-1)){
                         tempArr[1]=tempArr[1]+1;
                     }
@@ -141,6 +147,9 @@ exports.getDiff=function lcsDiff(source,target){
     else{
         reArr.push(tempArr);
     }
+    console.log("src:"+source);
+    console.log("tar:"+target);
+    console.log(reArr);
     return reArr;
 
 }
