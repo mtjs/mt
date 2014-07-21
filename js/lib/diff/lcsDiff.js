@@ -6,8 +6,8 @@
  * getdiff data from lcs
  */
 exports.getDiff=function lcsDiff(source,target){
-    console.log("src:"+source);
-    console.log("tar:"+target);
+  //  console.log("src:"+source);
+    //console.log("tar:"+target);
     var SAME= 0,REPLACE= 1,DELETE= 2,INSERT=3;
     var sourceArr=source.split('');
     //var sLength=sourceArr.length;
@@ -147,9 +147,9 @@ exports.getDiff=function lcsDiff(source,target){
     else{
         reArr.push(tempArr);
     }
-    console.log("src:"+source);
-    console.log("tar:"+target);
-    console.log(reArr);
+//    console.log("src:"+source);
+//    console.log("tar:"+target);
+//    console.log(reArr);
     return reArr;
 
 }

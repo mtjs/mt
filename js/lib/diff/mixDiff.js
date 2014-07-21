@@ -136,7 +136,7 @@ function addMerge(strDataArray,addArry){
 }
 
 function mixDiff(start,source,target,lcsMaxLen){
-   console.log("mixDiff:"+source+" "+target);
+  // console.log("mixDiff:"+source+" "+target);
     var minLen=12;
     var sourceLen=source.length;
     var targetLen=target.length;
@@ -149,7 +149,7 @@ function mixDiff(start,source,target,lcsMaxLen){
         return getDiffEncode(start,source,target);
     }
     var lcsStrItem=getLcsStrByChunk(start,source, target, minLen);
-    console.log(lcsStrItem);
+    //console.log(lcsStrItem);
     if(lcsStrItem.lcsPos[0]==-1){
 //			System.out.println("=======");
 //			System.out.println(start);
@@ -159,20 +159,14 @@ function mixDiff(start,source,target,lcsMaxLen){
     }
     else{
         var preArray=mixDiff(start,lcsStrItem.srcPre,lcsStrItem.tarPre,lcsMaxLen);
-        console.log("sfsdf"+reArray+"    safdasfsad"+preArray);
         reArray=addMerge(reArray, preArray);
-        console.log(reArray);
         var midArray=new Array();
         midArray.push(lcsStrItem.lcsPos);
-        //console.log( midArray);
         reArray=addMerge(reArray,midArray);
-        //console.log(reArray);
         var nextStart=lcsStrItem.lcsPos[0]+lcsStrItem.lcsPos[1]-1 ;
         var nextArray=mixDiff(nextStart,lcsStrItem.srcNext,lcsStrItem.tarNext,lcsMaxLen);
         reArray=addMerge(reArray, nextArray);
-        //console.log(reArray);
     }
-    console.log(reArray);
     return reArray;
 }
 exports.getDiff=function(start,source,target,lcsMaxLen){

@@ -16,7 +16,7 @@ var chunkSize = 12;
 var argvs = process.argv;
 var diffAlg=argvs[2];
 if(!diffAlg) diffAlg='lcs';
-console.log(diffAlg);
+//console.log(diffAlg);
 var baseDir=argvs[3]||'.';
 http.createServer(function(request, response) {
     //相对路径
@@ -44,7 +44,7 @@ http.createServer(function(request, response) {
         pathname=fileitem.pathname+fileitem.file;
 
         var fileInfo=getFileInfo(pathname);
-        console.log(fileInfo)
+       // console.log(fileInfo)
         var resultFile={};
         //是否变更
         resultFile.modify=true;
