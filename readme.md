@@ -207,18 +207,18 @@ MT
 
 <h2>基于AMD的模块定义</h2>
 <p>mt首先是一个基于amd规范得模块管理框架，所以模块的定义我们实用了最简单的一种方式：</p>
-      <code>
+      <pre><code>
         define('p1', ['p2', 'p3'], function (p2, p3) {
             var o = {
                 k: 'v'
             };
             return o;
         });
-    </code>
+    </pre></code>
     <p>用define来定义模块,其中第一个参数是模块id,第二个参数是依赖，第三个参数是方法定义，返回值是该模块的定义</p>
 <h3>mt映射和回调配置</h3>
 <p>跟其他模块管理框架一样，mt也有自己的模块到文件映射、增量更新配置、版本配置、回调配置等，下面是本例是我一个配置：</p>
-      <pre >
+       <pre><code>
 
                         var g_config =  {
                             jsmap:{
@@ -256,7 +256,7 @@ MT
                             ver: '2014053000002'  //版本号
 
                         };
-    </pre>
+   <pre><code>
     <p>在2014053000002版本，我们的p2代码如下： </p>
     <pre lass=”prettyprint linenums Lang-js”>
                define('p2', [], function () {
@@ -265,12 +265,12 @@ MT
                         });
 
                 }
-    </pre>
+   </pre></code>
     <h3>打包</h3>
     <p>mt的打包主要是用mt自己的mtbuild.js来做的，功能主要是根据规则压缩混淆合并js,同时生成上个版本的增量文件。我们运行demo/quickstart目录下的build.sh ,其实是执行mtbuild.js命令：</p>
-    <pre>
+    <pre><code>
         node ../../js/mtbuild.js test.html build.conf  lcs
-    </pre>
+    </pre></code>
     <p>第三个参数说明走编辑距离计算增量更新算法，你也可以设置成chunk走chunk算法 </p>
     <h3>启动增量服务</h3>
 
@@ -288,15 +288,15 @@ MT
     <img src="https://mtjs.github.io/img/02local.png">
     <p><p>
     <p>接着我们修改p2.js代码，加上"lcs"这3个字 ：</p>
-     <pre >
+       </pre></code>
     define('p2', [], function () {
         console.log('p2 ok!');
         document.write('p2 ok lcs!');
     });
-     </pre>
+     </pre></code>
     <p>然后重新运行命令  </p>
 
-    <pre>node ../../js/mtbuild.js test.html build.conf  lcs   </pre>
+        </pre></code>node ../../js/mtbuild.js test.html build.conf  lcs    </pre></code>
    <p> 这时候生成2014053000003版本代码，打开chrome(必须支持localstorage), 输入地址:http://localhost:6600/test.html ,这时候可以看到请求的内容是增量的,并且精确到了字符级别: </p>
     <p></p>
     <img src="https://mtjs.github.io/img/lcs.png">
