@@ -115,7 +115,7 @@ MT
 
         <h3>热combo，半热combo</h3>
         <p>半热combo是相对冷combo来说的，除了走打包实现冷combo以外，我们还支持通过前台配置来实现半热combo或热combo</p>
-             <pre >
+             <pre>
             combo:{
                                  //是否启用combo
                                 cb:true,
@@ -213,13 +213,13 @@ MT
                 k: 'v'
             };
             return o;
-        });</pre></code>
-
+        });
+</code></pre>
 <p>用define来定义模块,其中第一个参数是模块id,第二个参数是依赖，第三个参数是方法定义，返回值是该模块的定义</p>
 <h3>mt映射和回调配置</h3>
 <p>跟其他模块管理框架一样，mt也有自己的模块到文件映射、增量更新配置、版本配置、回调配置等，下面是本例是我一个配置：</p>
 
-
+<pre><code>
 var g_config =  {
     jsmap:{
         'init': 'base.js',
@@ -256,15 +256,15 @@ var g_config =  {
     ver: '2014053000002'  //版本号
 
 };
-
+</code></pre>
 <p>在2014053000002版本，我们的p2代码如下： </p>
-
+<pre><code>
 define('p2', [], function () {
         console.log('p2 ok!');
         document.write('p2 ok!');
         });
 }
-
+</code></pre>
 <h3>打包</h3>
 <p>mt的打包主要是用mt自己的mtbuild.js来做的，功能主要是根据规则压缩混淆合并js,同时生成上个版本的增量文件。我们运行demo/quickstart目录下的build.sh ,其实是执行mtbuild.js命令：</p>
 node ../../js/mtbuild.js test.html build.conf  lcs
@@ -273,7 +273,7 @@ node ../../js/mtbuild.js test.html build.conf  lcs
 
 <p>mt目前除了mt build生成增量文件以外，还提供了在服务端生成增量文件的server,包括java,nodejs两个版本，这里我们用以下nodejs版本。到js目录下执行命令</p>
 
-<pre> node storeincServer.js lcs ../demo/quickstart </pre>
+<pre><code> node storeincServer.js lcs ../demo/quickstart </code></pre>
 <p>第2个参数说明走lcs增量更新算法，你也可以设置成chunk走老算法，第三个参数是根目录，这里设置成../demo/quickstart </p>
 
 <h3>效果演示</h3>
@@ -290,10 +290,10 @@ define('p2', [], function () {
     console.log('p2 ok!');
     document.write('p2 ok lcs!');
 });
-</pre></code>
+</code></pre>
 <p>然后重新运行命令  </p>
 
-</pre></code>node ../../js/mtbuild.js test.html build.conf  lcs    </pre></code>
+</pre></code>node ../../js/mtbuild.js test.html build.conf  lcs    </code></pre>
 <p> 这时候生成2014053000003版本代码，打开chrome(必须支持localstorage), 输入地址:http://localhost:6600/test.html ,这时候可以看到请求的内容是增量的,并且精确到了字符级别: </p>
 <p></p>
 <img src="https://mtjs.github.io/img/lcs.png">
