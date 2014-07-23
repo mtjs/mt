@@ -257,54 +257,52 @@ MT
 
                         };
 
-    <p>在2014053000002版本，我们的p2代码如下： </p>
-<pre><code>
-               define('p2', [], function () {
-                        console.log('p2 ok!');
-                        document.write('p2 ok!');
-                        });
+<p>在2014053000002版本，我们的p2代码如下： </p>
 
-                }
-</pre></code>
-    <h3>打包</h3>
-    <p>mt的打包主要是用mt自己的mtbuild.js来做的，功能主要是根据规则压缩混淆合并js,同时生成上个版本的增量文件。我们运行demo/quickstart目录下的build.sh ,其实是执行mtbuild.js命令：</p>
-    <pre><code>
-        node ../../js/mtbuild.js test.html build.conf  lcs
-    </pre></code>
-    <p>第三个参数说明走编辑距离计算增量更新算法，你也可以设置成chunk走chunk算法 </p>
-    <h3>启动增量服务</h3>
-
-    <p>mt目前除了mt build生成增量文件以外，还提供了在服务端生成增量文件的server,包括java,nodejs两个版本，这里我们用以下nodejs版本。到js目录下执行命令</p>
-
-    <pre> node storeincServer.js lcs ../demo/quickstart </pre>
-    <p>第2个参数说明走lcs增量更新算法，你也可以设置成chunk走老算法，第三个参数是根目录，这里设置成../demo/quickstart </p>
-
-    <h3>效果演示</h3>
-
-    <p>打开chrome(必须支持localstorage),输入地址:http://localhost:6600/test.html ,可以看到请求的是全量的js</p>
-    <img src="https://mtjs.github.io/img/02full.png">
-    <p></p>
-    <p>本地存储里的内容是2014053000002版本的:</p>
-    <img src="https://mtjs.github.io/img/02local.png">
-    <p><p>
-    <p>接着我们修改p2.js代码，加上"lcs"这3个字 ：</p>
-       </pre></code>
-    define('p2', [], function () {
+define('p2', [], function () {
         console.log('p2 ok!');
-        document.write('p2 ok lcs!');
-    });
-     </pre></code>
-    <p>然后重新运行命令  </p>
+        document.write('p2 ok!');
+        });
+}
 
-        </pre></code>node ../../js/mtbuild.js test.html build.conf  lcs    </pre></code>
-   <p> 这时候生成2014053000003版本代码，打开chrome(必须支持localstorage), 输入地址:http://localhost:6600/test.html ,这时候可以看到请求的内容是增量的,并且精确到了字符级别: </p>
-    <p></p>
-    <img src="https://mtjs.github.io/img/lcs.png">
-    <p>我们来看下同样是这个修改，如果我们走chunk算法，会是什么样子。 我们需要重新走一遍上边的流程，但是把build.sh命令的lcs参数改成chunk,启动storeincServer时的lcs也改成chunk, 这里就不罗嗦步骤了，我们直接看看走chunk是的网络请求：</p>
-    <p></p>
-    <img src="https://mtjs.github.io/img/chunk.png">
-    <p></p>
-    <p>相对chunk算法，基于lcs算法的能更加精确</p>
+<h3>打包</h3>
+<p>mt的打包主要是用mt自己的mtbuild.js来做的，功能主要是根据规则压缩混淆合并js,同时生成上个版本的增量文件。我们运行demo/quickstart目录下的build.sh ,其实是执行mtbuild.js命令：</p>
+node ../../js/mtbuild.js test.html build.conf  lcs
+</pre></code>
+<p>第三个参数说明走编辑距离计算增量更新算法，你也可以设置成chunk走chunk算法 </p>
+<h3>启动增量服务</h3>
+
+<p>mt目前除了mt build生成增量文件以外，还提供了在服务端生成增量文件的server,包括java,nodejs两个版本，这里我们用以下nodejs版本。到js目录下执行命令</p>
+
+<pre> node storeincServer.js lcs ../demo/quickstart </pre>
+<p>第2个参数说明走lcs增量更新算法，你也可以设置成chunk走老算法，第三个参数是根目录，这里设置成../demo/quickstart </p>
+
+<h3>效果演示</h3>
+
+<p>打开chrome(必须支持localstorage),输入地址:http://localhost:6600/test.html ,可以看到请求的是全量的js</p>
+<img src="https://mtjs.github.io/img/02full.png">
+<p></p>
+<p>本地存储里的内容是2014053000002版本的:</p>
+<img src="https://mtjs.github.io/img/02local.png">
+<p><p>
+<p>接着我们修改p2.js代码，加上"lcs"这3个字 ：</p>
+</pre></code>
+define('p2', [], function () {
+    console.log('p2 ok!');
+    document.write('p2 ok lcs!');
+});
+</pre></code>
+<p>然后重新运行命令  </p>
+
+</pre></code>node ../../js/mtbuild.js test.html build.conf  lcs    </pre></code>
+<p> 这时候生成2014053000003版本代码，打开chrome(必须支持localstorage), 输入地址:http://localhost:6600/test.html ,这时候可以看到请求的内容是增量的,并且精确到了字符级别: </p>
+<p></p>
+<img src="https://mtjs.github.io/img/lcs.png">
+<p>我们来看下同样是这个修改，如果我们走chunk算法，会是什么样子。 我们需要重新走一遍上边的流程，但是把build.sh命令的lcs参数改成chunk,启动storeincServer时的lcs也改成chunk, 这里就不罗嗦步骤了，我们直接看看走chunk是的网络请求：</p>
+<p></p>
+<img src="https://mtjs.github.io/img/chunk.png">
+<p></p>
+<p>相对chunk算法，基于lcs算法的能更加精确</p>
 
 
 
