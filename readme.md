@@ -220,42 +220,42 @@ MT
 <p>跟其他模块管理框架一样，mt也有自己的模块到文件映射、增量更新配置、版本配置、回调配置等，下面是本例是我一个配置：</p>
 
 
-                        var g_config =  {
-                            jsmap:{
-                                'init': 'base.js',
-                                'util': 'base.js',
-                                'p1': 'page/p1.js',
-                                'p2': 'page/p2.js',
-                                'p3': 'page/p3.js'
-                            },
-                            storeInc:{
-                                //统计回调，统计脚本请求情况,jsUrl是js地址，
-                                //mode是请求模式，full:表示全量请求，
-                                //inc表示增量请求，local表示从本地存储读取
-                                'statFunc':function(jsUrl,mode){
-                                    console.log('get '+jsUrl+' from '+mode);
-                                },
-                                //写本地存储异常回调，将脚本内容写入本地
-                                //存储出现异常的时候调用，用来提供给业务
-                                //清理本地存储，storekey表示写如的key
-                                'storeExFunc':function(storeKey){
-                                    console.log('set store item '+storeKey+' exception') ;
-                                },
-                                'store': true,
-                                'inc': true,
-                                'proxy':true,
-                                'debug': false
-                            },
-                            //是否走combo,同时支持conf指定哪几个js是合并下载的
+var g_config =  {
+    jsmap:{
+        'init': 'base.js',
+        'util': 'base.js',
+        'p1': 'page/p1.js',
+        'p2': 'page/p2.js',
+        'p3': 'page/p3.js'
+    },
+    storeInc:{
+        //统计回调，统计脚本请求情况,jsUrl是js地址，
+        //mode是请求模式，full:表示全量请求，
+        //inc表示增量请求，local表示从本地存储读取
+        'statFunc':function(jsUrl,mode){
+            console.log('get '+jsUrl+' from '+mode);
+        },
+        //写本地存储异常回调，将脚本内容写入本地
+        //存储出现异常的时候调用，用来提供给业务
+        //清理本地存储，storekey表示写如的key
+        'storeExFunc':function(storeKey){
+            console.log('set store item '+storeKey+' exception') ;
+        },
+        'store': true,
+        'inc': true,
+        'proxy':true,
+        'debug': false
+    },
+    //是否走combo,同时支持conf指定哪几个js是合并下载的
 
-                            combo:{cb:true,conf:["init,util","p1,p2,p3"]},
-                            testEnv: false,
-                            staticPath: '/release',
-                            serverDomain: 'http://localhost:6600',
-                            buildType: 'project',
-                            ver: '2014053000002'  //版本号
+    combo:{cb:true,conf:["init,util","p1,p2,p3"]},
+    testEnv: false,
+    staticPath: '/release',
+    serverDomain: 'http://localhost:6600',
+    buildType: 'project',
+    ver: '2014053000002'  //版本号
 
-                        };
+};
 
 <p>在2014053000002版本，我们的p2代码如下： </p>
 
@@ -268,7 +268,6 @@ define('p2', [], function () {
 <h3>打包</h3>
 <p>mt的打包主要是用mt自己的mtbuild.js来做的，功能主要是根据规则压缩混淆合并js,同时生成上个版本的增量文件。我们运行demo/quickstart目录下的build.sh ,其实是执行mtbuild.js命令：</p>
 node ../../js/mtbuild.js test.html build.conf  lcs
-</pre></code>
 <p>第三个参数说明走编辑距离计算增量更新算法，你也可以设置成chunk走chunk算法 </p>
 <h3>启动增量服务</h3>
 
