@@ -267,7 +267,7 @@ define('p2', [], function () {
 </code></pre>
 <h3>打包</h3>
 <p>mt的打包主要是用mt自己的mtbuild.js来做的，功能主要是根据规则压缩混淆合并js,同时生成上个版本的增量文件。我们运行demo/quickstart目录下的build.sh ,其实是执行mtbuild.js命令：</p>
-node ../../js/mtbuild.js test.html build.conf  lcs
+<pre><code>node ../../js/mtbuild.js test.html build.conf  lcs</code></pre>
 <p>第三个参数说明走编辑距离计算增量更新算法，你也可以设置成chunk走chunk算法 </p>
 <h3>启动增量服务</h3>
 
