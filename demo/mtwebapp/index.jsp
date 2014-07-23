@@ -71,7 +71,7 @@
         combo:{cb:true,conf:[]},
         testEnv: false,
         staticPath: 'release',
-        serverDomain: 'http://localhost:8080/testweb/storeinc/',
+        serverDomain: 'http://localhost:8080/mtwebapp/storeinc/',
         ver: '2014071600018',
         buildType: 'project'
         }

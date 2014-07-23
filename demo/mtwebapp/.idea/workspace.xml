@@ -13,7 +13,7 @@
     </list>
     <ignored path="mtwebapp.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/index.jsp" changelist="c954fb3e-da96-4c51-b744-ea67612e895c" time="1405438911775" ignored="false" />
+    <file path="/index.jsp" changelist="c954fb3e-da96-4c51-b744-ea67612e895c" time="1405835495219" ignored="false" />
     <file path="$PROJECT_DIR$/../../../mtWebappCreater/basejstempl/index.jsp" changelist="c954fb3e-da96-4c51-b744-ea67612e895c" time="1405417921326" ignored="false" />
     <file path="$PROJECT_DIR$/../../../mtWebappCreater/basejstempl/init.js" changelist="c954fb3e-da96-4c51-b744-ea67612e895c" time="1405416790879" ignored="false" />
     <file path="$PROJECT_DIR$/../../../mtWebappCreater/mtCreate.js" changelist="c954fb3e-da96-4c51-b744-ea67612e895c" time="1405417233167" ignored="false" />
@@ -62,7 +62,7 @@
       <file leaf-file-name="index.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="52" selection-start="2683" selection-end="2683" vertical-scroll-proportion="-6.5">
+            <state line="73" column="45" selection-start="2676" selection-end="2684" vertical-scroll-proportion="-5.625">
               <folding />
             </state>
           </provider>
@@ -71,7 +71,7 @@
       <file leaf-file-name="index1.jsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index1.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="52" selection-start="2683" selection-end="2683" vertical-scroll-proportion="0.33139536">
+            <state line="73" column="53" selection-start="2684" selection-end="2684" vertical-scroll-proportion="0.56395346">
               <folding />
             </state>
           </provider>
@@ -155,7 +155,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="20" />
-    <option name="y" value="26" />
+    <option name="y" value="25" />
     <option name="width" value="1260" />
     <option name="height" value="722" />
   </component>
@@ -214,24 +214,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mtwebapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mtwebapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -341,8 +323,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="JavaScript.Libraries" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../cocos2d/cocos2d" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -407,7 +389,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="20" y="26" width="1260" height="722" extended-state="0" />
+    <frame x="20" y="25" width="1260" height="722" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -587,14 +569,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="52" selection-start="2683" selection-end="2683" vertical-scroll-proportion="-6.5">
+        <state line="73" column="45" selection-start="2676" selection-end="2684" vertical-scroll-proportion="-5.625">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index1.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="52" selection-start="2683" selection-end="2683" vertical-scroll-proportion="0.33139536">
+        <state line="73" column="53" selection-start="2684" selection-end="2684" vertical-scroll-proportion="0.56395346">
           <folding />
         </state>
       </provider>
