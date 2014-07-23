@@ -207,18 +207,18 @@ MT
 
 <h2>基于AMD的模块定义</h2>
 <p>mt首先是一个基于amd规范得模块管理框架，所以模块的定义我们实用了最简单的一种方式：</p>
-      <pre><code>
+<pre><code>
         define('p1', ['p2', 'p3'], function (p2, p3) {
             var o = {
                 k: 'v'
             };
             return o;
-        });
-    </pre></code>
-    <p>用define来定义模块,其中第一个参数是模块id,第二个参数是依赖，第三个参数是方法定义，返回值是该模块的定义</p>
+        });</pre></code>
+
+<p>用define来定义模块,其中第一个参数是模块id,第二个参数是依赖，第三个参数是方法定义，返回值是该模块的定义</p>
 <h3>mt映射和回调配置</h3>
 <p>跟其他模块管理框架一样，mt也有自己的模块到文件映射、增量更新配置、版本配置、回调配置等，下面是本例是我一个配置：</p>
-       <pre><code>
+<pre><code>
 
                         var g_config =  {
                             jsmap:{
@@ -256,16 +256,16 @@ MT
                             ver: '2014053000002'  //版本号
 
                         };
-   <pre><code>
+<pre><code>
     <p>在2014053000002版本，我们的p2代码如下： </p>
-    <pre lass=”prettyprint linenums Lang-js”>
+<pre><code>
                define('p2', [], function () {
                         console.log('p2 ok!');
                         document.write('p2 ok!');
                         });
 
                 }
-   </pre></code>
+</pre></code>
     <h3>打包</h3>
     <p>mt的打包主要是用mt自己的mtbuild.js来做的，功能主要是根据规则压缩混淆合并js,同时生成上个版本的增量文件。我们运行demo/quickstart目录下的build.sh ,其实是执行mtbuild.js命令：</p>
     <pre><code>
