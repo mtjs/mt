@@ -1,28 +1,34 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd "
-	version="2.4">
-    <servlet>
-        <description></description>
-        <display-name>StoreIncServlet</display-name>
-        <servlet-name>StoreIncServlet</servlet-name>
-        <servlet-class>com.storeinc.StoreIncServlet</servlet-class>
-        <init-param>
-            <param-name>jsPath</param-name>
-            <param-value>/Users/waynelu/nginxhtmls/mt2/demo/</param-value>
-        </init-param>
-        <init-param>
-            <param-name>chunkSize</param-name>
-            <param-value>12</param-value>
-        </init-param>
-        <init-param>
-            <param-name>diffAlg</param-name>
-            <param-value>lcs</param-value>
-        </init-param>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>StoreIncServlet</servlet-name>
-        <url-pattern>/storeinc/*</url-pattern>
-    </servlet-mapping>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>testweb</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>StoreIncServlet</display-name>
+    <servlet-name>StoreIncServlet</servlet-name>
+    <servlet-class>com.storeinc.StoreIncServlet</servlet-class>
+   <init-param>
+   <param-name>jsPath</param-name>
+   <param-value>/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/</param-value>
+     </init-param> 
+       <init-param> 
+     <param-name>chunkSize</param-name>
+   <param-value>12</param-value>
+  </init-param> 
+         <init-param> 
+     <param-name>diffAlg</param-name>
+   <param-value>lcs</param-value>
+  </init-param> 
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StoreIncServlet</servlet-name>
+    <url-pattern>/storeinc/*</url-pattern>
+  </servlet-mapping>
 </web-app>

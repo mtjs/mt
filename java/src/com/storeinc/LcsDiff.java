@@ -1,11 +1,16 @@
 package com.storeinc;
 
 import java.io.BufferedReader;
+
+
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -25,17 +30,9 @@ public class LcsDiff {
 		}
 
 	}
-//	private void printMatrix( int[][] disMatrix){
-//		int xlen=disMatrix.length;
-//		int ylen=disMatrix[0].length;
-//		for(int i=0;i<xlen;i++){
-//			for(int j=0;j<ylen;j++){
-//				System.out.print(" "+disMatrix[i][j]);
-//			}
-//			System.out.println("");
-//		}
-//	}
-	JSONObject  Diff(String source,String target){
+
+	JSONObject  diff(String source,String target){
+	
 		JSONObject resultFile = new JSONObject();
 		resultFile.put("modify", true);
 		// resultFile.modify=true;
@@ -49,19 +46,42 @@ public class LcsDiff {
 		}
 		final int  SAME= 0,REPLACE= 1,DELETE= 2,INSERT=3;
 	    
-	    String[] sourceTempArr=source.split("");//  source.split('');
-	    String[] targetTempArr=target.split("");
+       //String[] sourceTempArr=source.split("");//  source.split('');
+	   //String[] targetTempArr=target.split("");
+		  
+		String[] sourceTempArr=SplitUsingTokenizer(source,"");
+		//source.split("");//  source.split('');
+		String[] targetTempArr=SplitUsingTokenizer(target,"");  
 	    String[] sourceArr=new String[sourceTempArr.length-1];
 	    String[] targetArr=new String[targetTempArr.length-1];
+	    
+//	    System.out.println(source+"||||="+sourceArr.length);
+//	    System.out.print("start ");
+//	    for(int i=0;i<sourceTempArr.length;i++){
+//	    	 System.out.print(sourceTempArr[i]+"==");
+//	    }
+//	    System.out.println("  end");
+//	    System.out.println(target+"||||="+targetArr.length);
+//	    System.out.print("start ");
+//	    for(int i=0;i<targetTempArr.length;i++){
+//	    	 System.out.print(targetTempArr[i]+"==");
+//	    }
+//	    System.out.println("  end");
 	    for(int jx=1;jx<sourceTempArr.length;jx++){
 	    	sourceArr[jx-1]=sourceTempArr[jx];
 	    }
 	    for(int jx=1;jx<targetTempArr.length;jx++){
 	    	targetArr[jx-1]=targetTempArr[jx];
 	    }
-	    
+//	   System.out.println(sourceArr.length);
+//	    System.out.println(targetArr.length);
+	   // if(true) return null;
+	   
 	    int[][] disMatrix=new int[sourceArr.length+1][targetArr.length+1];
+	    //System.out.println(sourceArr.length);
+	
 	    int[][] stepMatrix=new int[sourceArr.length+1][targetArr.length+1];
+	  
 	    //var tLength=targetArr.length;
 	    //编辑距离矩阵
 	   // ArrayList<ArrayList<Integer>> disMatrix=new ArrayList<ArrayList<Integer>>();
@@ -129,15 +149,17 @@ public class LcsDiff {
 	    }
 
 
-	   // printMatrix(disMatrix);
-	    //System.out.println("==========");
-	    //printMatrix(stepMatrix);
+//	    printMatrix(disMatrix);
+//	    System.out.println("==========");
+//	    //
+//	   printMatrix(stepMatrix);
 	   // System.out.println(targetArr.length);
 	   // ArrayList<DiffItem> diff=new ArrayList<DiffItem>(targetArr.length+1);
 	    DiffItem[] diff=new DiffItem[targetArr.length];
 	    for(int i=sourceArr.length,j=targetArr.length;i>0||j>0;){
 	        int step=stepMatrix[i][j];
 	        //System.out.println(i+" "+j);
+	        if(j-1<0) break;
 	        switch(step){
 	            case SAME:
 	            	Integer[] intArray={i,SAME};
@@ -249,10 +271,19 @@ public class LcsDiff {
 	        }
 	        
 	    }
+//		System.out.println("lcsdiff result:"+strDataArray);
 	    resultFile.put("data", strDataArray);
 		
 	    return resultFile;
 
+	}
+	public void printMatrix(int[][] disMatrix){
+		for(int i=0;i<disMatrix.length;i++){
+			for(int j=0;j<disMatrix[i].length;j++){
+				System.out.print(disMatrix[i][j]);
+			}
+			System.out.println("");
+		}
 	}
 	private String MD5(String s) {
 		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -294,6 +325,7 @@ public class LcsDiff {
 				while ((rLine = bfin.readLine()) != null) {
 					strBuffer.append(rLine);
 				}
+				bfin.close();
 			} catch (Exception ex) {
 
 			}
@@ -301,13 +333,135 @@ public class LcsDiff {
 		return strBuffer.toString();
 
 	}
+	
+	public JSONObject makeIncDataFromContent(String oldContent,String newContent){
+	
+		return diff(oldContent,newContent);
+	}
+	public String merge(String oldContent,JSONObject incData){
+		String reContent="";
+		JSONArray dataArray=incData.getJSONArray("data");
+		for(int i=0;i<dataArray.size();i++){
+			Object jObj=dataArray.get(i);
+			if(jObj instanceof JSONArray){
+				JSONArray jsonObj=(JSONArray)jObj;
+				int start=jsonObj.getIntValue(0)-1;
+				int len=jsonObj.getIntValue(1);
+				reContent+=oldContent.substring(start,start+len);
+			}
+			else{
+				reContent+=jObj.toString();
+			}
+		}
+		
+		return reContent;
+	}
 	public JSONObject makeIncDataFromFile(String oldFile, String newFile
 			) {
+		
 		String oldContent = readFile(oldFile, "utf-8");
 		String newContent = readFile(newFile, "utf-8");
-		return Diff(oldContent, newContent);
+		return makeIncDataFromContent(oldContent,newContent);
+		
+		//return Diff(oldContent, newContent);
 
 	}
+	private String[] SplitUsingTokenizer(String subject, String delimiters) {
+		   // System.out.println("=="+subject+"==");
+			char[] charArray=subject.toCharArray();
+			String[] strArray=new String[charArray.length+1];
+			for(int i=1;i<=charArray.length;i++){
+				strArray[i]=charArray[i-1]+"";
+			}
+			strArray[0]="";
+			 return strArray;
+		}
+	private  String[] splitWorker(String str, String separatorChars, int max, boolean preserveAllTokens)
+	{
+	        // Performance tuned for 2.0 (JDK1.4)
+	        // Direct code is quicker than StringTokenizer.
+	        // Also, StringTokenizer uses isSpace() not isWhitespace()
+
+	        if (str == null) {
+	            return null;
+	        }
+	        int len = str.length();
+	        if (len == 0) {
+	        	//String[] empty=new String[0];
+	            return new String[0];
+	        }
+	        List list = new ArrayList();
+	        int sizePlus1 = 1;
+	        int i = 0, start = 0;
+	        boolean match = false;
+	        boolean lastMatch = false;
+	        if (separatorChars == null) {
+	            // Null separator means use whitespace
+	            while (i < len) {
+	                if (Character.isWhitespace(str.charAt(i))) {
+	                    if (match || preserveAllTokens) {
+	                        lastMatch = true;
+	                        if (sizePlus1++ == max) {
+	                            i = len;
+	                            lastMatch = false;
+	                        }
+	                        list.add(str.substring(start, i));
+	                        match = false;
+	                    }
+	                    start = ++i;
+	                    continue;
+	                }
+	                lastMatch = false;
+	                match = true;
+	                i++;
+	            }
+	        } else if (separatorChars.length() == 1) {
+	            // Optimise 1 character case
+	            char sep = separatorChars.charAt(0);
+	            while (i < len) {
+	                if (str.charAt(i) == sep) {
+	                    if (match || preserveAllTokens) {
+	                        lastMatch = true;
+	                        if (sizePlus1++ == max) {
+	                            i = len;
+	                            lastMatch = false;
+	                        }
+	                        list.add(str.substring(start, i));
+	                        match = false;
+	                    }
+	                    start = ++i;
+	                    continue;
+	                }
+	                lastMatch = false;
+	                match = true;
+	                i++;
+	            }
+	        } else {
+	            // standard case
+	            while (i < len) {
+	                if (separatorChars.indexOf(str.charAt(i)) >= 0) {
+	                    if (match || preserveAllTokens) {
+	                        lastMatch = true;
+	                        if (sizePlus1++ == max) {
+	                            i = len;
+	                            lastMatch = false;
+	                        }
+	                        list.add(str.substring(start, i));
+	                        match = false;
+	                    }
+	                    start = ++i;
+	                    continue;
+	                }
+	                lastMatch = false;
+	                match = true;
+	                i++;
+	            }
+	        }
+	        if (match || (preserveAllTokens && lastMatch)) {
+	            list.add(str.substring(start, i));
+	        }
+	        return (String[]) list.toArray(new String[list.size()]);
+	    }
 	
 	/**
 	 * @param args
@@ -315,17 +469,47 @@ public class LcsDiff {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		String src="define('init',['util','p1'],function(){console.log(' init depend on util p1 ok 49!'),document.write('init depend on util p1 ok!</br>')}),define('util',[],function(){console.log('util ok!'),document.write('util ok!</br>')});";
-		String target="define('init',['util','p1'],function(){console.log(' init depend on util p1 ok!'),document.write('init depend on util p1 ok!</br>')}),define('util',[],function(){console.log('util ok!'),document.write('util ok!</br>')});";
+		String src="define('init',['util','p1'],function(){console.log('dafds init depend on uil p1 ok!'),document.write('init depend on util p1 ok!</br>')}),define('util',[],function(){console.log('ut ok!'),document.write('util ok!</br>')});sadfafds";
+		String target="sdf define('init',['util','p1'],function(){console.log(' int depnd on util sdfs p1 ok 49!'),document.write('init depend on 34 util p1 ok!</br>')}),define('util',[],function(){console.log('util ok!'),document.write('il ok!</br>')});csadf";
+	
+		
+		src="util ok!</br>')});sadfafds";
+		target="il ok!</br>')});csadf";
 		//String src="12";
 		//String target="1e3    您好434";
 		LcsDiff dUtil = new LcsDiff();
-		//JSONObject json = dUtil.Diff(target,src);
-		JSONObject json = dUtil.makeIncDataFromFile(
-						"/Users/waynelu/storeinc/demo/static/hello/dist/1.0.6/main-1.0.6.js",
-						"/Users/waynelu/storeinc/demo/static/hello/dist/1.0.7/main-1.0.7.js"
-						);
-		System.out.println(json.toJSONString());
+		//ChunkDiff Util = new ChunkDiff();
+		//src = dUtil.readFile("/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071500017/base-2014071500017.js", "utf-8");
+		//target= dUtil.readFile("/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071600018/base-2014071600018.js", "utf-8");
+//		JSONObject json = dUtil
+//				.makeIncDataFromFile(
+//						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071500017/base-2014071500017.js",
+//						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071500016/base-2014071500016.js");
+		JSONObject json1 = dUtil.diff(src,target);
+			System.out.println(json1.getJSONArray("data").toJSONString());
+//		System.out.println(dUtil.makeIncDataFromContent(src,target));
+//		JSONObject json = dUtil.makeIncDataFromFile(
+//						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071500017/base-2014071500017.js",
+//						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071600018/base-2014071600018.js"
+//						);
+//		
+		//System.out.println(json.toJSONString());
+		String mergeContent=dUtil.merge(src,json1);
+		System.out.println(target);
+		System.out.println(mergeContent);
+		if(target.equals(mergeContent)){
+			System.out.println(true);
+		}
+		else{
+			System.out.println(false);
+		}
+//		JSONObject json12 = Util
+//				.makeIncDataFromFile(
+//						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071500017/base-2014071500017.js",
+//						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071600018/base-2014071600018.js",
+//						12);
+		//System.out.println(json12.toJSONString());
+		//short[][] disMatrix=new short[24900][24980];
 	}
 
 }

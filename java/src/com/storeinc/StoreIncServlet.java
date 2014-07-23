@@ -4,6 +4,8 @@ import java.io.IOException;
 
 
 
+
+
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletConfig;
@@ -53,7 +55,6 @@ public class StoreIncServlet extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Origin","*");
 		response.setCharacterEncoding("utf-8");
 		String url=request.getRequestURI();
-		//System.out.println(this.diffAlg);
 
 		String[] pathArray=url.split("storeinc");
 		url=pathArray[1];
@@ -113,7 +114,7 @@ public class StoreIncServlet extends HttpServlet {
 				//System.out.println(oldFile);
 				//System.out.println(fullFile);
 	           //如果是全量
-				DiffUtil dUtil=new DiffUtil();
+				ChunkDiff dUtil=new ChunkDiff();
 				if(isFull){
 	            	String fullContent=dUtil.readFile(fullFile, "utf-8");
 	        		JSONObject resultFile = new JSONObject();
@@ -140,8 +141,9 @@ public class StoreIncServlet extends HttpServlet {
 						//response.getWriter().print(resultFile.toJSONString());
 					}
 					else{
-						LcsDiff lcfDiff = new LcsDiff();
-						JSONObject resultFile=lcfDiff.makeIncDataFromFile(oldFile, fullFile);
+						MixDiff mixDiff = new MixDiff();
+						JSONObject resultFile=mixDiff.makeIncDataFromFile(oldFile,fullFile);
+						System.out.println(resultFile);
 						resultFile.put("js", js);
 						resultFile.put("inc", true);
 						//fileContentMap.put(fullName, resultFile.toJSONString());
@@ -153,7 +155,7 @@ public class StoreIncServlet extends HttpServlet {
 				}
 
 		}
-		fileContentMap.put(fullName, iArray.toJSONString());
+		//fileContentMap.put(fullName, iArray.toJSONString());
 		if(iArray.size()>0){
 			response.getWriter().print(iArray.toJSONString());
 		}

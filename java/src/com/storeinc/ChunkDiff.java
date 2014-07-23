@@ -2,6 +2,8 @@ package com.storeinc;
 
 import java.io.BufferedReader;
 
+
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -16,7 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * @author waynelu 计算两个文件之间的增量，并返回增量文件
  */
-public class DiffUtil {
+public class ChunkDiff {
 	class DiffItem {
 		private boolean isMatch;
 		private String data;
@@ -204,6 +206,7 @@ public class DiffUtil {
 
 	public JSONObject makeIncDataFile(String oldFile, String newFile,
 			int chunkSize) {
+		//System.out.println("new chunkDiff");
 		JSONObject resultFile = new JSONObject();
 		resultFile.put("modify", true);
 		// resultFile.modify=true;
@@ -295,6 +298,7 @@ public class DiffUtil {
 				while ((rLine = bfin.readLine()) != null) {
 					strBuffer.append(rLine);
 				}
+				bfin.close();
 			} catch (Exception ex) {
 
 			}
@@ -311,7 +315,7 @@ public class DiffUtil {
 
 	}
 
-	public DiffUtil() {
+	public ChunkDiff() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -320,12 +324,12 @@ public class DiffUtil {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		DiffUtil dUtil = new DiffUtil();
+		ChunkDiff dUtil = new ChunkDiff();
 		JSONObject json = dUtil
 				.makeIncDataFromFile(
-						"/Users/waynelu/storeinc/demo/static/hello/dist/1.0.6/main-1.0.6.js",
-						"/Users/waynelu/storeinc/demo/static/hello/dist/1.0.7/main-1.0.7.js",
-						12);
+						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071500017/base-2014071500017.js",
+						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071500016/base-2014071500016.js",
+						12);        
 		System.out.println(json.toJSONString());
 	}
 
