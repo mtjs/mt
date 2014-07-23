@@ -4,7 +4,8 @@ MT
 =============
 <p >MT是手机腾讯网前端团队开发维护的一个专注于移动端的、带有增增量更新特色的js模块管理框架</p>
 
-
+<p >我们的官网是<a href="http://mt.tencent.com">http://mt.tencent.com</a>,<a href="https://mtjs.github.io">https://mtjs.github.io</a></p>
+<p>如果觉得MT是个靠谱的项目，请给我们star,您的支持是我们最大的动力</p>
 
 <div class="container">
 
@@ -32,14 +33,14 @@ MT
     </div>
     <p>在快速迭代版本过程中，我们有时候只修改了某个js中的<strong>几行代码</strong>，却需要用户下载<strong>整个js文件</strong>，这在重视流量的移动端显得非常浪费，mt独创的<strong>增强更新算法</strong>实现了修改多少代码就只下载修改代码的功能，为用户和公司节省大量流量</p>
     <p>比如某次修改我们需要修改下面的代码,在mt mthelloworld 后面加上ok两个字符,即把</p>
-    <pre class=”prettyprint linenums Lang-js”>
+    <pre >
         define('mthelloworld', [], function () {
                     console.log('mt helloworld');
         });
         }
     </pre>
     <p>修改为</p>
-    <pre class=”prettyprint linenums Lang-js”>
+    <pre >
         define('mthelloworld', [], function () {
                     console.log('mt helloworld ok');
         });
@@ -94,7 +95,7 @@ MT
         <p>作为一个基于AMD规范的模块管理框架，mt还提供灵活的combo支持.mt的combo支持包含一下几种方式：</p>
         <h3>冷combo</h3>
         <p>冷combo就是在打包混淆的时候把多个不同的模块打包进同一个js,前台下载的时候直接下载这个js，比如打包配置如下：</p>
-        <pre class=”prettyprint linenums Lang-js”>
+        <pre >
             {
                          './release/{pv}/base-{fv}.js': {
                                 files: ['./js/init.js','./js/util.js']
@@ -114,7 +115,7 @@ MT
 
         <h3>热combo，半热combo</h3>
         <p>半热combo是相对冷combo来说的，除了走打包实现冷combo以外，我们还支持通过前台配置来实现半热combo或热combo</p>
-             <pre class=”prettyprint linenums Lang-js”>
+             <pre >
             combo:{
                                  //是否启用combo
                                 cb:true,
@@ -125,7 +126,7 @@ MT
             }
         </pre>
         <p>上面的代码，我们设置了combo的cb为true,说明走combo. conf的配置则设置了哪些模块是要走combo一起下载的， 即使打包脚本没有把他们打在一起。 为了看效果，我们先把cb设为false，conf设置为空数组,表示不走combo：</p>
-        <pre class=”prettyprint linenums Lang-js”>
+        <pre >
 
                                    combo:{
                                    //是否启用combo
@@ -146,7 +147,7 @@ MT
         <p>可以看到base.js,p1.js是分开下载的，而p2.js,p3.js是一起下载的，这是因为mt2.0自己分析了依赖，把某个模块共同依赖一起下载了，这个例子里面p1依赖了p2,p3两个模块 所以p2,p3被一起下载了，这就是热combo!  </p>
 
         <p>这时候我们想,我想让p1,p2,p3一次就下载了，怎么弄？很简单，我们只要设置combo.conf为如下: </p>
-        <pre class=”prettyprint linenums Lang-js”>
+        <pre >
 
                                     combo:{
                                     //是否启用combo
@@ -173,7 +174,7 @@ MT
             <h1> MT的异常和统计回调</h1>
         </div>
         <p>为了方便统计和及时清理本地存储，mt还提供了本地存储异常和统计两种回调。通过设施g_config的storeInc对象的statFunc,storeExFunc两个函数，可以设置统计和本地存储异常回调 , statFunc在请求每个js的时候触发,便于统计每个js的请求情况，storeExFunc在写本地存储异常回调， 将脚本内容写入本地存储出现异常的时候调用，用来提供给业务清理本地存储</p>
-      <pre class=”prettyprint linenums Lang-js”>
+      <pre >
        storeInc:{
                     //统计回调，统计脚本请求情况,jsUrl是js地址，
                     //mode是请求模式，full:表示全量请求，
@@ -207,7 +208,7 @@ MT
 
 <h2>基于AMD的模块定义</h2>
 <p>mt首先是一个基于amd规范得模块管理框架，所以模块的定义我们实用了最简单的一种方式：</p>
-      <pre class=”prettyprint linenums Lang-js”>
+      <pre >
         define('p1', ['p2', 'p3'], function (p2, p3) {
             var o = {
                 k: 'v'
@@ -218,7 +219,7 @@ MT
     <p>用define来定义模块,其中第一个参数是模块id,第二个参数是依赖，第三个参数是方法定义，返回值是该模块的定义</p>
 <h3>mt映射和回调配置</h3>
 <p>跟其他模块管理框架一样，mt也有自己的模块到文件映射、增量更新配置、版本配置、回调配置等，下面是本例是我一个配置：</p>
-      <pre class=”prettyprint linenums Lang-js”>
+      <pre >
 
                         var g_config =  {
                             jsmap:{
@@ -288,7 +289,7 @@ MT
     <img src="https://mtjs.github.io/img/02local.png">
     <p><p>
     <p>接着我们修改p2.js代码，加上"lcs"这3个字 ：</p>
-     <pre class=”prettyprint linenums Lang-js”>
+     <pre >
     define('p2', [], function () {
         console.log('p2 ok!');
         document.write('p2 ok lcs!');
@@ -480,7 +481,7 @@ MT
 </p>
 
     
-<h1>如果觉得</h1>
+<h1>如果觉得MT是个靠谱的项目，请给我们star,您的支持是我们最大的动力</h1>
 
 
 
