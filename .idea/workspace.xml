@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
-    </list>
+    <list default="true" id="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" name="Default" comment="" />
     <ignored path="mt.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" time="1406098612482" ignored="false" />
@@ -30,7 +28,7 @@
       <file leaf-file-name="readme.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="269" column="50" selection-start="9449" selection-end="9449" vertical-scroll-proportion="0.58035713">
+            <state line="269" column="50" selection-start="9449" selection-end="9449" vertical-scroll-proportion="-7.589286">
               <folding />
             </state>
           </provider>
@@ -232,7 +230,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="269" column="50" selection-start="9449" selection-end="9449" vertical-scroll-proportion="0.58035713">
+        <state line="269" column="50" selection-start="9449" selection-end="9449" vertical-scroll-proportion="-7.589286">
           <folding />
         </state>
       </provider>
