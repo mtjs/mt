@@ -439,7 +439,7 @@ define('p2', [], function () {
     <span>
         <a href="http://infoapp.3g.qq.com/g/s?aid=sportpicguess">
             <div class="img-tit">体育猜图</div>
-            <img pl="1" alt="体育猜图" width="100px" src="http://3gimg.qq.com/wap30/info/info5/img/caitu.png” >
+            <img pl="1" alt="体育猜图" width="100px" src="http://3gimg.qq.com/wap30/info/info5/img/caitu.png">
         </a>
        </span>
        </td>
