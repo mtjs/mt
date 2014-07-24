@@ -25,8 +25,6 @@ MT
 <div class="span9">
 
 
-<!-- Overview
-================================================== -->
 <section id="overview">
     <div class="page-header">
         <h1>为什么使用MT</h1>
@@ -55,8 +53,7 @@ MT
 
 
 
-<!-- storeinc
-================================================== -->
+
 <section id="storeinc">
     <div class="page-header">
         <h1>MT增量更新技术方案介绍</h1>
@@ -86,8 +83,7 @@ MT
 
 </section>
 
-    <!-- combo
-  ================================================== -->
+
     <section id="combo">
         <div class="page-header">
             <h1>MT的COMBO介绍</h1>
@@ -167,8 +163,7 @@ MT
 
 
 
-    <!-- callback
-================================================== -->
+
     <section id="callback">
         <div class="page-header">
             <h1> MT的异常和统计回调</h1>
@@ -306,8 +301,7 @@ define('p2', [], function () {
 
 
 
-<!-- demo
-================================================== -->
+
 <section id="demo">
     <div class="page-header">
         <h1>一个完整的webapp demo</h1>
@@ -445,8 +439,7 @@ define('p2', [], function () {
     <span>
         <a href="http://infoapp.3g.qq.com/g/s?aid=sportpicguess">
             <div class="img-tit">体育猜图</div>
-            <img pl="1" alt="体育猜图" width="100px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIilAAAAA/1BMVEXrglTIbkfbeU7hfFDXd0zmf1LKcEj////ZeE3Ockndek/UdUvQc0q8aEPjfVHEbEbSdEvMcUm+aUTogFOsYD3fe1CwYj/ee0/qgVOlWzu4fWO/j3nVdkzUsqP69vTkflGiWjrGmoe1ZEGsZ0ioZEbNppXsiV28h2/y5N6kX0D+/f338O25gmr9+/qxdVvu3tera0++fWDFinDHgmTlvKn//v7avbD58/D06+i5Z0Txqov87OXoxLTan4PjzMLYt6jo1My+f2TOlXzRhmTOflru2dCtbVHInoywcVXRrp7SoIrdpo3grZfhs57dwrW0bU7t0sfMeVTgxbnZm3/Tj3FDRaPiAAAEA0lEQVRIx+2Xa1PaUBCGAxxyiBJiQghBKIS0iOFekQIKiIKA92r7/39Ld88h4ZKkOn7rTJ8PGph5snuWdzMTgV5enAif4OTikgqXTP2UfilcCJ8F1JNPu6D+518kbgp+EqKUFBPvqSaZqVF+ExLffPtaPD0t/k695z716mMCVyV1NPNKxb9T4PHg7zJ5rFFauwGbjGj/F4mSaDYWyxwMeyCfJTixYDc9p0jznqRfa1jrafT0MB6PH5+a8OntnPMr5PCRUQ/t3j15wP+3NIi+GjJq0p1QoHbfh79X+WBZFEKIKVd0zdQKlotDM8xOF9Z2v2N0KuVGq/MNGMAXrW+LVqNarTasmBBqR36yzqu6rDcqlUo5D+AplnnOsa6YYX0fjvson+bk4aJHA+h15GRg1ezRDOsiLXvYoYF0ZC3rd8n84dYr9kVHuVkftIEm9tI+rRfxQCtZU9L7burGFTEh7Zxs5Y8dK4ewgeGF5ViOruu26s9ImydsOcEbOHr56q7MwTFMfrg8Tyt2dF/OziFTxeeOXmGHbtFQ7mwl7hv10bzr6LZdpUC+HC4fa4pq+ucdL0VkPuby0stUvz6o9/tFz701FEUJ3g9ifKHAsjF9XuaPF45lWTkOZuxuOrh9kSNAKUg+6DZRrhg53aq0p1+2eGtfrQzd0CKIZPrdknjKh6LLRoX6mBgoigjxn5qM1ikBOWBmZxqoHDXlW+lz6smyU/TJOldVJLkbtKyIdT3ZQhlW8iujQQEjwk0JITtlZ222UnVXxgt0N/JLRFyrSSC22cbZiM25uBrwgckQ6n2+R1QUkSPAbfxwvY3NqtVnPxW2HSBz9Qg5PEy4lcc17uoOC0mILILLRI4XrTF0OWjowxXLtiFrDgsy5/r6hsvoolZgCC5RcfbbNmQjzx8lsowh7+/LoHKTADvzTgklSX/DqVmyZjeov20VXNdMJPbXIzPHmU90WTOWfvlaRRdFzraYLBTUW7aRhqbpkwBZwrKoRhkb13xtP7/VKVB3oOtFDcNSBc6Qe5ZtyVMPEGGDxDaKFzacKT6mVxqiAN+5TIinZrPZ7V1+8IKtWexGU0NhK6hKIpNvJOYyMwPsPEHPe5S28/oQxnUMByi2ZIW5qhRZy9wFM4bsruS8+5KDcMmaZnwrVxa24spJ+7rb7Q4Jd1FNAfvPQDNNFHAB29aYCzKGEjfCc1FFOYCM6o7JLYyhLBTwwJ5bAoRAoPyWDDUxWQQLM5er8bgQRkxCl8tJJvPC3EUV5HDiBdGTsWu3MLqoptPC3zCzR5sjE8JOzAuj6snh5RMSlzddu65pvv+WYWYK3pE3XaN78qFXo3h0V+auefHBlzIzlfDJJ5cffx2MZ6LbMr4O/gFqCprTIsdpYwAAAABJRU5ErkJggg==">
-
+            <img pl="1" alt="体育猜图" width="100px" src="http://3gimg.qq.com/wap30/info/info5/img/caitu.png”>
         </a>
        </span>
        </td>
@@ -476,7 +469,7 @@ define('p2', [], function () {
 </p>
 
     
-<h1>如果觉得MT是个靠谱的项目，请给我们star,您的支持是我们最大的动力</h1>
+<h1>我们的github:https://github.com/mtjs/mt , 如果觉得MT是个靠谱的项目，请给我们star,您的支持是我们最大的动力</h1>
 
 
 
