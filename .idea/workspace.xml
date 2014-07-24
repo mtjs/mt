@@ -7,7 +7,7 @@
     <ignored path="mt.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" time="1406163811177" ignored="false" />
-    <file path="/readme.md" changelist="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" time="1406164479622" ignored="false" />
+    <file path="/readme.md" changelist="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" time="1406165249813" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +30,7 @@
       <file leaf-file-name="readme.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="441" column="106" selection-start="14788" selection-end="14788" vertical-scroll-proportion="0.33701658">
+            <state line="471" column="49" selection-start="15524" selection-end="15524" vertical-scroll-proportion="0.5441989">
               <folding />
             </state>
           </provider>
@@ -239,7 +239,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="441" column="106" selection-start="14788" selection-end="14788" vertical-scroll-proportion="0.33701658">
+        <state line="471" column="49" selection-start="15524" selection-end="15524" vertical-scroll-proportion="0.5441989">
           <folding />
         </state>
       </provider>

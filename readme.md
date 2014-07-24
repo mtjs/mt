@@ -469,7 +469,7 @@ define('p2', [], function () {
 </p>
 
     
-<h1>我们的github:https://github.com/mtjs/mt , 如果觉得MT是个靠谱的项目，请给我们star,您的支持是我们最大的动力</h1>
+<h1>我们的<a href="github:https://github.com/mtjs/mt">github:https://github.com/mtjs/mt</a> , 如果觉得MT是个靠谱的项目，请给我们star,您的支持是我们最大的动力</h1>
 
 
 
