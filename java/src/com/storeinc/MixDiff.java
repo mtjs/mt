@@ -121,7 +121,7 @@ public class MixDiff {
 		int targetLen=target.length();
 		JSONArray reArray=new JSONArray();
 		//如果是
-		if(sourceLen*targetLen<lcsMaxLen*lcsMaxLen){
+		if((sourceLen*targetLen<lcsMaxLen*lcsMaxLen)&&(sourceLen*targetLen)>0){
 //			System.out.println(start);
 //			System.out.println(source);
 //			System.out.println(target);
