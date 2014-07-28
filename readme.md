@@ -77,115 +77,115 @@ MT
 </section>
 
 
-    <section id="combo">
-        <div class="page-header">
-            <h1>MT的COMBO介绍</h1>
-        </div>
-        <p>作为一个基于AMD规范的模块管理框架，mt还提供灵活的combo支持.mt的combo支持包含一下几种方式：</p>
-        <h3>冷combo</h3>
-        <p>冷combo就是在打包混淆的时候把多个不同的模块打包进同一个js,前台下载的时候直接下载这个js，比如打包配置如下：</p>
-        <pre >
-            {
-                         './release/{pv}/base-{fv}.js': {
-                                files: ['./js/init.js','./js/util.js']
-                         },
-                         './release/{pv}/page/p1-{fv}.js': {
-                            files: ['./js/page/p1.js']
-                         },
-                         './release/{pv}/page/p2-{fv}.js': {
-                            files: ['./js/page/p2.js']
-                         },
-                         './release/{pv}/page/p3-{fv}.js': {
-                            files: ['./js/page/p3.js']
-                         }
-            }
-        </pre>
-        <p>可以看到我们的init,util模块被打到base.js里，达到冷combo的目的</p>
+<section id="combo">
+<div class="page-header">
+    <h1>MT的COMBO介绍</h1>
+</div>
+<p>作为一个基于AMD规范的模块管理框架，mt还提供灵活的combo支持.mt的combo支持包含一下几种方式：</p>
+<h3>冷combo</h3>
+<p>冷combo就是在打包混淆的时候把多个不同的模块打包进同一个js,前台下载的时候直接下载这个js，比如打包配置如下：</p>
+<pre >
+    {
+                 './release/{pv}/base-{fv}.js': {
+                        files: ['./js/init.js','./js/util.js']
+                 },
+                 './release/{pv}/page/p1-{fv}.js': {
+                    files: ['./js/page/p1.js']
+                 },
+                 './release/{pv}/page/p2-{fv}.js': {
+                    files: ['./js/page/p2.js']
+                 },
+                 './release/{pv}/page/p3-{fv}.js': {
+                    files: ['./js/page/p3.js']
+                 }
+    }
+</pre>
+<p>可以看到我们的init,util模块被打到base.js里，达到冷combo的目的</p>
 
-        <h3>热combo，半热combo</h3>
-        <p>半热combo是相对冷combo来说的，除了走打包实现冷combo以外，我们还支持通过前台配置来实现半热combo或热combo</p>
-             <pre>
-            combo:{
-                                 //是否启用combo
-                                cb:true,
-                                //哪些模块的js走半热combo一块下载
-                               //，这里数组的每个项是要一起下载的模块
-                                conf:['init,util','p1,p2,p3']
+<h3>热combo，半热combo</h3>
+<p>半热combo是相对冷combo来说的，除了走打包实现冷combo以外，我们还支持通过前台配置来实现半热combo或热combo</p>
+     <pre>
+    combo:{
+                         //是否启用combo
+                        cb:true,
+                        //哪些模块的js走半热combo一块下载
+                       //，这里数组的每个项是要一起下载的模块
+                        conf:['init,util','p1,p2,p3']
 
-            }
-        </pre>
-        <p>上面的代码，我们设置了combo的cb为true,说明走combo. conf的配置则设置了哪些模块是要走combo一起下载的， 即使打包脚本没有把他们打在一起。 为了看效果，我们先把cb设为false，conf设置为空数组,表示不走combo：</p>
-        <pre >
+    }
+</pre>
+<p>上面的代码，我们设置了combo的cb为true,说明走combo. conf的配置则设置了哪些模块是要走combo一起下载的， 即使打包脚本没有把他们打在一起。 为了看效果，我们先把cb设为false，conf设置为空数组,表示不走combo：</p>
+<pre >
 
-                                   combo:{
-                                   //是否启用combo
-                                   cb:flase,
-                                   //哪些模块的js走半热combo一块下载
-                                   //，这里数组的每个项是要一起下载的模块
-                                   conf:[]
+                           combo:{
+                           //是否启用combo
+                           cb:flase,
+                           //哪些模块的js走半热combo一块下载
+                           //，这里数组的每个项是要一起下载的模块
+                           conf:[]
 
-                                   }
+                           }
 
-        </pre>
-        <p>我们看下网络请求：</p>
-        <img src="https://mtjs.github.io/img/nocombo.png">
-        <p>可以看到base.js,p1.js,p2.js,p3.js是分开下载的，说明没有走combo   </p>
+</pre>
+<p>我们看下网络请求：</p>
+<img src="https://mtjs.github.io/img/nocombo.png">
+<p>可以看到base.js,p1.js,p2.js,p3.js是分开下载的，说明没有走combo   </p>
 
-        <p>然后设置了combo的cb为true,说明走combo. 我们看下网络请求：</p>
-        <img src="https://mtjs.github.io/img/hotcombo.png">
-        <p>可以看到base.js,p1.js是分开下载的，而p2.js,p3.js是一起下载的，这是因为mt2.0自己分析了依赖，把某个模块共同依赖一起下载了，这个例子里面p1依赖了p2,p3两个模块 所以p2,p3被一起下载了，这就是热combo!  </p>
+<p>然后设置了combo的cb为true,说明走combo. 我们看下网络请求：</p>
+<img src="https://mtjs.github.io/img/hotcombo.png">
+<p>可以看到base.js,p1.js是分开下载的，而p2.js,p3.js是一起下载的，这是因为mt2.0自己分析了依赖，把某个模块共同依赖一起下载了，这个例子里面p1依赖了p2,p3两个模块 所以p2,p3被一起下载了，这就是热combo!  </p>
 
-        <p>这时候我们想,我想让p1,p2,p3一次就下载了，怎么弄？很简单，我们只要设置combo.conf为如下: </p>
-        <pre >
+<p>这时候我们想,我想让p1,p2,p3一次就下载了，怎么弄？很简单，我们只要设置combo.conf为如下: </p>
+<pre >
 
-                                    combo:{
-                                    //是否启用combo
-                                    cb:true,
-                                    //哪些模块的js走半热combo一块下载
-                                    //，这里数组的每个项是要一起下载的模块
-                                    conf:['init,util','p1,p2,p3']
+                            combo:{
+                            //是否启用combo
+                            cb:true,
+                            //哪些模块的js走半热combo一块下载
+                            //，这里数组的每个项是要一起下载的模块
+                            conf:['init,util','p1,p2,p3']
 
-                                    }
+                            }
 
-        </pre>
-        <p>我们看下网络请求：</p>
-        <img src="https://mtjs.github.io/img/halfhotcombo.png">
-        <p>ok，p1,p2,p3一次就下载了！！，这就是半热combo,需要配置一下conf.        </p>
-    </section>
-
-
+</pre>
+<p>我们看下网络请求：</p>
+<img src="https://mtjs.github.io/img/halfhotcombo.png">
+<p>ok，p1,p2,p3一次就下载了！！，这就是半热combo,需要配置一下conf.        </p>
+</section>
 
 
 
-    <section id="callback">
-        <div class="page-header">
-            <h1> MT的异常和统计回调</h1>
-        </div>
-        <p>为了方便统计和及时清理本地存储，mt还提供了本地存储异常和统计两种回调。通过设施g_config的storeInc对象的statFunc,storeExFunc两个函数，可以设置统计和本地存储异常回调 , statFunc在请求每个js的时候触发,便于统计每个js的请求情况，storeExFunc在写本地存储异常回调， 将脚本内容写入本地存储出现异常的时候调用，用来提供给业务清理本地存储</p>
-      <pre >
-       storeInc:{
-                    //统计回调，统计脚本请求情况,jsUrl是js地址，
-                    //mode是请求模式，full:表示全量请求，
-                    //inc表示增量请求，local表示从本地存储读取
-                    'statFunc':function(jsUrl,mode){
-                        console.log('get '+jsUrl+' from '+mode);
-                    },
-                    //写本地存储异常回调，将脚本内容写入本地存储
-                    //出现异常的时候调用，用来提供给业务清理本地存储
-                    //，storekey表示写如的key
-                    'storeExFunc':function(storeKey){
-                        console.log('set store item '+storeKey+' exception');
-                    },
-                    'store': true,
-                    'inc': true,
-                    'proxy':true,
-                    'debug': false
-                },
 
 
-      </pre>
+<section id="callback">
+<div class="page-header">
+    <h1> MT的异常和统计回调</h1>
+</div>
+<p>为了方便统计和及时清理本地存储，mt还提供了本地存储异常和统计两种回调。通过设施g_config的storeInc对象的statFunc,storeExFunc两个函数，可以设置统计和本地存储异常回调 , statFunc在请求每个js的时候触发,便于统计每个js的请求情况，storeExFunc在写本地存储异常回调， 将脚本内容写入本地存储出现异常的时候调用，用来提供给业务清理本地存储</p>
+<pre >
+storeInc:{
+            //统计回调，统计脚本请求情况,jsUrl是js地址，
+            //mode是请求模式，full:表示全量请求，
+            //inc表示增量请求，local表示从本地存储读取
+            'statFunc':function(jsUrl,mode){
+                console.log('get '+jsUrl+' from '+mode);
+            },
+            //写本地存储异常回调，将脚本内容写入本地存储
+            //出现异常的时候调用，用来提供给业务清理本地存储
+            //，storekey表示写如的key
+            'storeExFunc':function(storeKey){
+                console.log('set store item '+storeKey+' exception');
+            },
+            'store': true,
+            'inc': true,
+            'proxy':true,
+            'debug': false
+        },
 
-    </section>
+
+</pre>
+
+</section>
 
 
 <div class="page-header">
