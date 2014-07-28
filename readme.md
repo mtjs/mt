@@ -16,8 +16,6 @@ MT
 <h4><a href="#who"><i class="icon-chevron-right"></i>谁在使用MT</a></h4>
 <h4><a href="#github"><i class="icon-chevron-right"></i>下载</a></h4>
 
-
-
 <section id="overview">
     <div class="page-header">
         <h1>为什么使用MT</h1>
@@ -48,38 +46,38 @@ MT
 
 
 <section id="storeinc">
-    <div class="page-header">
-        <h1>MT增量更新技术方案介绍</h1>
-    </div>
-    <h3>总体流程介绍</h3>
-    <p>增量更新依赖于localstorage,所以浏览器必须支持localstorage。android和ios两大平台目前都支持。</p>
-    <p>增量更新流程如下图所示：</p>
-    <p><img src='https://mtjs.github.io/img/storeinc.png'></p>
-    <p>localstorage里面存储的上个版本的js内容和版本号，当本次版本号和上次版本号不一致的时候，mt拼接出增量文件url去拉取增量文件，并和上个版本的js内容合并生成新版本内容。整个方案得核心在于增量文件得计算和合并，接下来介绍mt支持的2种增量更新算法。</p>
-    <h3>基于chunk的增量更新算法</h3>
-    <p>在mt1.0里面，增量文件的计算和增量文件和旧版本内容的合并主要基于chunk算法，这个算法的原理是通过将js分块并滚动比较取得两个版本内容，获取增量文件。具体得算法设计请看下面这个PDF:</p>
-    <a href="https://mtjs.github.io/img/mt1.pdf">mt1.0js增量更新技术实现</a>
+<div class="page-header">
+<h1>MT增量更新技术方案介绍</h1>
+</div>
+<h3>总体流程介绍</h3>
+<p>增量更新依赖于localstorage,所以浏览器必须支持localstorage。android和ios两大平台目前都支持。</p>
+<p>增量更新流程如下图所示：</p>
+<p><img src='https://mtjs.github.io/img/storeinc.png'></p>
+<p>localstorage里面存储的上个版本的js内容和版本号，当本次版本号和上次版本号不一致的时候，mt拼接出增量文件url去拉取增量文件，并和上个版本的js内容合并生成新版本内容。整个方案得核心在于增量文件得计算和合并，接下来介绍mt支持的2种增量更新算法。</p>
+<h3>基于chunk的增量更新算法</h3>
+<p>在mt1.0里面，增量文件的计算和增量文件和旧版本内容的合并主要基于chunk算法，这个算法的原理是通过将js分块并滚动比较取得两个版本内容，获取增量文件。具体得算法设计请看下面这个PDF:</p>
+<a href="https://mtjs.github.io/img/mt1.pdf">mt1.0js增量更新技术实现</a>
 
-    <h3>基于编辑距离计算的增量更新算法</h3>
-    <p>mt1.0的chunk算法基于分块计算，增量更新的精确度依赖于chunk的大小，在实际使用中总是会有不少代码需要冗余下载，为此在mt2.0里面增加路基于编辑距离计算的增量更新算法，具体的实现方案的PDF如下：</p>
-    <a href="https://mtjs.github.io/img/mt2.pdf">mt2.0js基于编辑距离计算的增量更新技术实现</a>
+<h3>基于编辑距离计算的增量更新算法</h3>
+<p>mt1.0的chunk算法基于分块计算，增量更新的精确度依赖于chunk的大小，在实际使用中总是会有不少代码需要冗余下载，为此在mt2.0里面增加路基于编辑距离计算的增量更新算法，具体的实现方案的PDF如下：</p>
+<a href="https://mtjs.github.io/img/mt2.pdf">mt2.0js基于编辑距离计算的增量更新技术实现</a>
 
-    <h3>mixdiff:基于编辑距离计算，chunk两种算法的增量更新</h3>
-    <p>编辑距离计算可以精确到字符，但是需要用一个矩阵来存储字符，本身会占用很大的内存，基本上比较难于用在生产环境里，
-        所以我们的mixdiff融合了以上两种算法，提高了算法的性能，并能实现字符级别的增量更新。
-        mixdif其实就是：对于比较字符串比较短的字符用lcs来计算增量文件，对于比较长的字符串用chunkdiff来找出2个字符串的最大公共子字符串，然后用这个字符串将新旧2个字符串都切成前缀、公共子串、后缀。
-        然后分别用2个前缀，后缀为参数递归调用mixdiff来实现增量文件计算的方式。流程图如下：
-    </p>
-    <img src="https://mtjs.github.io/img/mixdiff_flow.png">
-    <p>程序流程图如下：</p>
-    <img src="https://mtjs.github.io/img/mixdiff_codeflow.png">
+<h3>mixdiff:基于编辑距离计算，chunk两种算法的增量更新</h3>
+<p>编辑距离计算可以精确到字符，但是需要用一个矩阵来存储字符，本身会占用很大的内存，基本上比较难于用在生产环境里，
+    所以我们的mixdiff融合了以上两种算法，提高了算法的性能，并能实现字符级别的增量更新。
+    mixdif其实就是：对于比较字符串比较短的字符用lcs来计算增量文件，对于比较长的字符串用chunkdiff来找出2个字符串的最大公共子字符串，然后用这个字符串将新旧2个字符串都切成前缀、公共子串、后缀。
+    然后分别用2个前缀，后缀为参数递归调用mixdiff来实现增量文件计算的方式。流程图如下：
+</p>
+<img src="https://mtjs.github.io/img/mixdiff_flow.png">
+<p>程序流程图如下：</p>
+<img src="https://mtjs.github.io/img/mixdiff_codeflow.png">
 
 </section>
 
 
 <section id="combo">
 <div class="page-header">
-    <h1>MT的COMBO介绍</h1>
+<h1>MT的COMBO介绍</h1>
 </div>
 <p>作为一个基于AMD规范的模块管理框架，mt还提供灵活的combo支持.mt的combo支持包含一下几种方式：</p>
 <h3>冷combo</h3>
@@ -104,20 +102,18 @@ MT
 
 <h3>热combo，半热combo</h3>
 <p>半热combo是相对冷combo来说的，除了走打包实现冷combo以外，我们还支持通过前台配置来实现半热combo或热combo</p>
-     <pre>
-    combo:{
+<pre>
+combo:{
                          //是否启用combo
                         cb:true,
                         //哪些模块的js走半热combo一块下载
                        //，这里数组的每个项是要一起下载的模块
                         conf:['init,util','p1,p2,p3']
 
-    }
+}
 </pre>
 <p>上面的代码，我们设置了combo的cb为true,说明走combo. conf的配置则设置了哪些模块是要走combo一起下载的， 即使打包脚本没有把他们打在一起。 为了看效果，我们先把cb设为false，conf设置为空数组,表示不走combo：</p>
-<pre >
-
-                           combo:{
+<pre >                          combo:{
                            //是否启用combo
                            cb:flase,
                            //哪些模块的js走半热combo一块下载
@@ -137,16 +133,14 @@ MT
 
 <p>这时候我们想,我想让p1,p2,p3一次就下载了，怎么弄？很简单，我们只要设置combo.conf为如下: </p>
 <pre >
+combo:{
+//是否启用combo
+cb:true,
+//哪些模块的js走半热combo一块下载
+//，这里数组的每个项是要一起下载的模块
+conf:['init,util','p1,p2,p3']
 
-                            combo:{
-                            //是否启用combo
-                            cb:true,
-                            //哪些模块的js走半热combo一块下载
-                            //，这里数组的每个项是要一起下载的模块
-                            conf:['init,util','p1,p2,p3']
-
-                            }
-
+}
 </pre>
 <p>我们看下网络请求：</p>
 <img src="https://mtjs.github.io/img/halfhotcombo.png">
@@ -159,7 +153,7 @@ MT
 
 <section id="callback">
 <div class="page-header">
-    <h1> MT的异常和统计回调</h1>
+<h1> MT的异常和统计回调</h1>
 </div>
 <p>为了方便统计和及时清理本地存储，mt还提供了本地存储异常和统计两种回调。通过设施g_config的storeInc对象的statFunc,storeExFunc两个函数，可以设置统计和本地存储异常回调 , statFunc在请求每个js的时候触发,便于统计每个js的请求情况，storeExFunc在写本地存储异常回调， 将脚本内容写入本地存储出现异常的时候调用，用来提供给业务清理本地存储</p>
 <pre >
@@ -180,9 +174,7 @@ storeInc:{
             'inc': true,
             'proxy':true,
             'debug': false
-        },
-
-
+},
 </pre>
 
 </section>
