@@ -7,15 +7,14 @@ MT
 <p >我们的官网是<a href="http://mt.tencent.com">http://mt.tencent.com</a>,<a href="https://mtjs.github.io">https://mtjs.github.io</a></p>
 <h3>我们的github:<a href="https://github.com/mtjs/mt">https://github.com/mtjs/mt</a>,如果觉得MT是个靠谱的项目，请给我们star,您的支持是我们最大的动力</h3>
 
-
-        <li><a href="#overview"><i class="icon-chevron-right"></i> 为什么使用MT</a></li>
-        <li><a href="#storeinc"><i class="icon-chevron-right"></i> MT增量更新技术方案介绍</a></li>
-        <li><a href="#combo"><i class="icon-chevron-right"></i> MT的COMBO介绍</a></li>
-        <li><a href="#callback"><i class="icon-chevron-right"></i> MT的异常和统计回调</a></li>
-        <li><a href="#quickstart"><i class="icon-chevron-right"></i>快速上手</a></li>
-        <li><a href="#demo"><i class="icon-chevron-right"></i>webapp demo</a></li>
-        <li><a href="#who"><i class="icon-chevron-right"></i>谁在使用MT</a></li>
-        <li><a href="#github"><i class="icon-chevron-right"></i>下载</a></li>
+<h4><a href="#overview"><i class="icon-chevron-right"></i> 为什么使用MT</a></h4>
+<h4><a href="#storeinc"><i class="icon-chevron-right"></i> MT增量更新技术方案介绍</a></h4>
+<h4><a href="#combo"><i class="icon-chevron-right"></i> MT的COMBO介绍</a></h4>
+<h4><a href="#callback"><i class="icon-chevron-right"></i> MT的异常和统计回调</a></h4>
+<h4><a href="#quickstart"><i class="icon-chevron-right"></i>快速上手</a></h4>
+<h4><a href="#demo"><i class="icon-chevron-right"></i>webapp demo</a></h4>
+<h4><a href="#who"><i class="icon-chevron-right"></i>谁在使用MT</a></h4>
+<h4><a href="#github"><i class="icon-chevron-right"></i>下载</a></h4>
 
 
 
