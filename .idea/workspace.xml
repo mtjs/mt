@@ -7,7 +7,7 @@
     <ignored path="mt.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" time="1406511445788" ignored="false" />
-    <file path="/readme.md" changelist="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" time="1406165249813" ignored="false" />
+    <file path="/readme.md" changelist="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" time="1406511625846" ignored="false" />
     <file path="$PROJECT_DIR$/../mtjs.github.io/index.html" changelist="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" time="1406166241721" ignored="false" />
     <file path="/index.html" changelist="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" time="1406166241721" ignored="false" />
     <file path="$PROJECT_DIR$/../cocos2djs3/samples/jstower/project.json" changelist="5bacb35f-c4c8-4ced-9074-efc94d8bdba9" time="1406193386486" ignored="false" />
@@ -37,7 +37,7 @@
       <file leaf-file-name="readme.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="81" selection-start="287" selection-end="287" vertical-scroll-proportion="0.29745042">
+            <state line="7" column="121" selection-start="327" selection-end="327" vertical-scroll-proportion="0.16997167">
               <folding />
             </state>
           </provider>
@@ -313,7 +313,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="81" selection-start="287" selection-end="287" vertical-scroll-proportion="0.29745042">
+        <state line="7" column="121" selection-start="327" selection-end="327" vertical-scroll-proportion="0.16997167">
           <folding />
         </state>
       </provider>
