@@ -2,7 +2,7 @@
 
 MT
 =============
-<p >MT是手机腾讯网前端团队开发维护的一个专注于移动端的、带有增增量更新特色的js模块管理框架</p>
+<p >MT是手机腾讯网前端团队开发维护的一个专注于移动端的、带有增量更新特色的js模块管理框架</p>
 
 <p >我们的官网是<a href="http://mt.tencent.com">http://mt.tencent.com</a>,<a href="https://mtjs.github.io">https://mtjs.github.io</a></p>
 <h3>我们的github:<a href="https://github.com/mtjs/mt">https://github.com/mtjs/mt</a>,如果觉得MT是个靠谱的项目，请给我们star,您的支持是我们最大的动力</h3>
