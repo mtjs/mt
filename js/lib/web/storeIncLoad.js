@@ -263,13 +263,19 @@ var storeIncLoad= (function () {
     }
     function mergeLcs(src,diff){
         var strBuffer='';
+        var lastArray=null;
         for(var i=0;i<diff.length;i++){
             var item=diff[i];
             if(typeof(item)=='string'){
                 strBuffer=strBuffer+item;
             }
             else{
-                strBuffer=strBuffer+src.substr(item[0]-1,item[1]);
+                var start=item[0];
+                if(lastArray){
+                    start=start+lastArray[0];
+                }
+                lastArray=diff[i];
+                strBuffer=strBuffer+src.substr(start-1,item[1]);
             }
         }
         return strBuffer;

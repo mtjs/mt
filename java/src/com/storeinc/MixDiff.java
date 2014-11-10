@@ -148,14 +148,33 @@ public class MixDiff {
 		}
 		return reArray;
 	}
+	public JSONArray compress(JSONArray reArray){
+		JSONArray lastArray = null;
+	    for(int i = 0; i < reArray.size(); i ++){
+			Object jObj=reArray.get(i);
+			if(jObj instanceof JSONArray){
+				JSONArray jsonObj=(JSONArray)jObj;
+	            if(lastArray!=null){
+	            	jsonObj.set(0, jsonObj.getIntValue(0)-lastArray.getIntValue(0));
+	            }
+	            lastArray=jsonObj;
+	        }
+	    }
+		return reArray;
+	}
 	public String merge(String oldContent,JSONObject incData){
 		String reContent="";
 		JSONArray dataArray=incData.getJSONArray("data");
+		JSONArray lastArray=null;
 		for(int i=0;i<dataArray.size();i++){
 			Object jObj=dataArray.get(i);
 			if(jObj instanceof JSONArray){
 				JSONArray jsonObj=(JSONArray)jObj;
 				int start=jsonObj.getIntValue(0)-1;
+		        if(lastArray!=null){
+		                start=start+lastArray.getIntValue(0);
+		        }
+		        lastArray=jsonObj;
 				int len=jsonObj.getIntValue(1);
 				//System.out.println("merge lcs:"+oldContent.substring(start,start+len));
 				reContent+=oldContent.substring(start,start+len);
@@ -253,7 +272,7 @@ public class MixDiff {
 			resultFile.put("data", strDataArray);
 			return resultFile;
 		}
-		JSONArray jArray=mixDiff(0,source, target,12);
+		JSONArray jArray=compress(mixDiff(0,source, target,12));
 		resultFile.put("data", jArray);
 		return resultFile;
 	}
@@ -281,14 +300,14 @@ public class MixDiff {
 		///Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp///release/2014071500017///base-2014071500017.js /Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp///release/2014071600018///base-2014071600018.js
 		//src = dUtil.readFile("Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp///release/2014071500017///base-2014071500017.js", "utf-8");
 		//target= dUtil.readFile("/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp///release/2014071600018///base-2014071600018.js", "utf-8");
-		JSONObject json = dUtil
-				.makeIncDataFromFile(
-						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp///release/2014071500017///base-2014071500017.js",
-						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp///release/2014071600018///base-2014071600018.js");
+//		JSONObject json = dUtil
+//				.makeIncDataFromFile(
+//						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp///release/2014071500017///base-2014071500017.js",
+//						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp///release/2014071600018///base-2014071600018.js");
 		JSONObject json1 = dUtil.makeIncDataFromContent(src,target);
 		//LcsDiff lcsUtil = new LcsDiff();
 		//System.out.println(lcsUtil.diff(src, target));
-		System.out.println(json.toJSONString());
+		System.out.println(json1.toJSONString());
 		//System.out.println(Util.makeIncDataFile(src,target,12));
 //		JSONObject json = dUtil.makeIncDataFromFile(
 //						"/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/release/2014071500017/base-2014071500017.js",

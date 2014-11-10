@@ -84,10 +84,16 @@ function getLcsStrByChunk(initStart,source,target,minLen){
 function merge(oldContent,incData){
     var reContent="";
     var dataArray=incData;
+    var lastArray=null;
     for(var i=0;i<dataArray.length;i++){
+        var jObj=dataArray[i];
         if(typeof(jObj)=="object" ){
             var start=jObj[0]-1;
             var len=jObj[1];
+            if(lastArray){
+                start=start+lastArray[0];
+            }
+            lastArray=jObj;
             //System.out.println("merge lcs:"+oldContent.substring(start,start+len));
             reContent+=oldContent.substring(start,start+len);
 
@@ -167,16 +173,40 @@ function mixDiff(start,source,target,lcsMaxLen){
         var nextArray=mixDiff(nextStart,lcsStrItem.srcNext,lcsStrItem.tarNext,lcsMaxLen);
         reArray=addMerge(reArray, nextArray);
     }
+    //console.log(reArray);
     return reArray;
 }
+function compress(reArray){
+    var lastArray = null;
+    for(var i = 0; i < reArray.length; i ++){
+        if(typeof (reArray[i]) == "object"){
+            if(lastArray){
+                reArray[i][0]=reArray[i][0]-lastArray[0];
+
+            }
+            lastArray=reArray[i];
+        }
+    }
+    return reArray;
+
+}
 exports.getDiff=function(start,source,target,lcsMaxLen){
-    return mixDiff(start,source,target,lcsMaxLen) ;
+    return compress(mixDiff(start,source,target,lcsMaxLen));
 
 };
-//var src="define('init',['util','p1'],function(){console.log('dafds init depend on uil p1 ok!'),document.write('init depend on util p2 ok!</br>')}),define('util',[],function(){console.log('ut ok!'),document.write('util ok!</br>')});sadfafds";
-//var target="sdf define('init',['util','p1'],function(){console.log(' int depnd on util sdfs p1 ok 49!'),document.write('init depend on 34 util p2 ok!</br>')}),define('util',[],function(){console.log('util ok!'),document.write('il ok!</br>')});csadf";
+var src="define('init',['util','p1'],function(){console.log('dafds init depend on uil p1 ok!'),document.write('init depend on util p2 ok!</br>')}),define('util',[],function(){console.log('ut ok!'),document.write('util ok!</br>')});sadfafds";
+var target="sdf define('init',['util','p1'],function(){console.log(' int depnd on util sdfs p1 ok 49!'),document.write('init depend on 34 util p2 ok!</br>')}),define('util',[],function(){console.log('util ok!'),document.write('il ok!</br>')});csadf";
 //
 ////String src="12";
 ////String target="1e3    您好434";
-//var json=mixDiff(0,src,target,500);
+var json=compress(mixDiff(0,src,target,500));
+console.log(json);
+var strMerge=merge(src,json);
+if(strMerge==target){
+    console.log(true);
+}
+else{
+    console.log(false);
+}
+
 //console.log(json);
