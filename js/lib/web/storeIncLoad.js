@@ -143,7 +143,7 @@ var storeIncLoad= (function () {
                                 //全量模式
                                 jsCode=data.data;
                             }
-                            try{
+                    try{
                                 // console.log(jsCode);
                                 //eval js代码，执行回调,写入本地存储
                                 globalEval(jsCode);

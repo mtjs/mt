@@ -41,15 +41,15 @@
             <%if(!testEnv) {%>
         <script type="text/javascript" id="file_config">
         var g_config = {
-        jsmap: {
-        "jqmobi": "/base.js",
-        "pm": "/base.js",
-        "basepage": "/base.js",
-        "txTpl": "/base.js",
-        "theater": "/pages/theater.js",
-        "index": "/pages/index.js",
-        "init": "/base.js"
-        },
+            jsmap: {
+                "jqmobi": "/base.js",
+                "pm": "/base.js",
+                "basepage": "/base.js",
+                "txTpl": "/base.js",
+                "theater": "/pages/theater.js",
+                "index": "/pages/index.js",
+                "init": "/base.js"
+            },
         storeInc:{
             //统计回调，统计脚本请求情况,jsUrl是js地址，mode是请求模式，
             //full:表示全量请求，inc表示增量请求，local表示从本地存储读取

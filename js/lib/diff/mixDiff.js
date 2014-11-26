@@ -196,12 +196,18 @@ exports.getDiff=function(start,source,target,lcsMaxLen){
 };
 var src="define('init',['util','p1'],function(){console.log('dafds init depend on uil p1 ok!'),document.write('init depend on util p2 ok!</br>')}),define('util',[],function(){console.log('ut ok!'),document.write('util ok!</br>')});sadfafds";
 var target="sdf define('init',['util','p1'],function(){console.log(' int depnd on util sdfs p1 ok 49!'),document.write('init depend on 34 util p2 ok!</br>')}),define('util',[],function(){console.log('util ok!'),document.write('il ok!</br>')});csadf";
-//
+var fs = require('fs');
+src= fs.readFileSync('zepto.min.js','utf-8');
+target= fs.readFileSync('zepto.min-01.js','utf-8');
+//console.log(src);
 ////String src="12";
 ////String target="1e3    您好434";
-var json=compress(mixDiff(0,src,target,500));
-console.log(json);
-var strMerge=merge(src,json);
+var json=mixDiff(0,src,target,500);
+var json1=compress(mixDiff(0,src,target,500));
+fs.writeFileSync('diff.json',json.toString());
+fs.writeFileSync('diff1.json',json1.toString());
+
+var strMerge=merge(src,json1);
 if(strMerge==target){
     console.log(true);
 }

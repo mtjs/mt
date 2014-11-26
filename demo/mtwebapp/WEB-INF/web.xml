@@ -16,7 +16,7 @@
     <servlet-class>com.storeinc.StoreIncServlet</servlet-class>
    <init-param>
    <param-name>jsPath</param-name>
-   <param-value>/Users/waynelu/nginxhtmls/jetty/webapps/mtwebapp/</param-value>
+   <param-value>/Users/waynelu/work/github/mt/demo/mtwebapp/</param-value>
      </init-param> 
        <init-param> 
      <param-name>chunkSize</param-name>

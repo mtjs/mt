@@ -38,7 +38,7 @@
         <div id="wrapper"></div>
         </div>
         </div>
-            <%if(!testEnv) {%>
+       <%if(!testEnv) {%>
         <script type="text/javascript" id="file_config">
         var g_config = {
         jsmap: {
