@@ -461,6 +461,9 @@ define('p2', [], function () {
 
 
 
+## Licence
+
+MIT License
 
 
 
